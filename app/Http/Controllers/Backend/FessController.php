@@ -6,10 +6,16 @@ use App\FeeSetup;
 use App\Http\Controllers\Controller;
 use App\IClass;
 use App\Section;
+use App\AcademicYear;
+use App\FeeCollection;
+use App\FeeHistory;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\View;
 use Redirect;
 use Validator;
+use DB;
+use App\Http\Helpers\AppHelper;
+use Brian2694\Toastr\Facades\Toastr;
 
 class FessController extends Controller {
 
@@ -99,6 +105,214 @@ class FessController extends Controller {
 	public function getCollection() {
 		$classes = IClass::orderby('id', 'asc')->get();
 		$section =Section::all();
-		return View::Make('backend.fees.feeCollection', compact('classes'));
+		$academicYear =AcademicYear::all();
+		return View::Make('backend.fees.feeCollection', compact('classes','section','academicYear'));
+	}
+
+	public function getListjson($class,$type)
+	{
+		$fees= FeeSetup::select('id','title')->where('class_id','=',$class)->where('type','=',$type)->get();
+		return $fees;
+	}
+
+	public function getFeeInfo($id)
+	{
+		$fee= FeeSetup::select('fee','Latefee')->where('id','=',$id)->get();
+		return $fee;
+	}
+
+	public function getDue($class,$stdId)
+	{
+		$due = FeeCollection::select(DB::RAW('IFNULL(sum(payableAmount),0)- IFNULL(sum(paidAmount),0) as dueamount'))
+		->where('class',$class)
+		->where('regi_no',$stdId)
+		->first();
+		return $due->dueamount;
+
+	}
+
+	public function postCollection()
+	{
+
+		$rules=[
+
+			'class_id' => 'required',
+			'regi_no' => 'required',
+			'date' => 'required',
+			'paidamount' => 'required',
+			'dueamount' => 'required',
+			'ctotal' => 'required'
+
+		];
+		$validator = \Validator::make(Input::all(), $rules);
+
+		if ($validator->fails())
+		{
+			return Redirect::to('/fees/collection')->withInput(Input::all())->withErrors($validator);
+		}
+		else {
+			try {
+				$feeTitles = Input::get('gridFeeTitle');
+				$feeAmounts = Input::get('gridFeeAmount');
+				$feeLateAmounts = Input::get('gridLateFeeAmount');
+				$feeTotalAmounts = Input::get('gridTotal');
+				$feeMonths = Input::get('gridMonth');
+				$counter = count($feeTitles);
+				if($counter>0)
+				{
+					$rows = FeeCollection::count();
+					if($rows<9)
+					{
+						$billId='B00'.($rows+1);
+					}
+					else if($rows<100)
+					{
+						$billId='B0'.($rows+1);
+					}
+					else {
+						$billId='B'.($rows+1);
+					}
+					DB::transaction(function() use ($billId,$counter,$feeTitles,$feeAmounts,$feeLateAmounts,$feeTotalAmounts,$feeMonths)
+					{
+						$feeCol = new FeeCollection();
+						$feeCol->billNo=$billId;
+						$feeCol->class_id=Input::get('class_id');
+						$feeCol->regi_no=Input::get('regi_no');
+						$feeCol->academic_year_id=Input::get('academic_year_id');
+
+						$feeCol->payableAmount=Input::get('ctotal');
+						$feeCol->paidAmount=Input::get('paidamount');
+						$feeCol->dueAmount=Input::get('dueamount');
+						$feeCol->payDate=Input::get('date');
+						$feeCol->save();
+                      
+						for ($i=0;$i<$counter;$i++) {
+							$feehistory = new FeeHistory();
+							$feehistory->billNo=$billId;
+							$feehistory->title=$feeTitles[$i];
+							$feehistory->fee=$feeAmounts[$i];
+							$feehistory->lateFee=$feeLateAmounts[$i];
+							$feehistory->total=$feeTotalAmounts[$i];
+							$feehistory->month=$feeMonths[$i];
+							$feehistory->save();
+
+						}
+					});
+					return Redirect::to('/fees/collection')->with("success","Fee collection succesfull.");
+				}
+				else {
+					Toastr::warning('Please Add Atlest one Fee:','Warning');
+					return Redirect::to('/fees/collection')->withInput(Input::all());
+
+				}
+			}
+			catch(\Exception $e)
+			{
+               Toastr::warning('Please Add Atlest one Fee:','Warning');
+				return Redirect::to('/fees/collection')->withInput();
+			}
+
+		}
+	}
+
+	public function stdfeeview()
+	{
+	    $classes = IClass::orderby('id', 'asc')->get();
+		$section =Section::all();
+		$academicYear =AcademicYear::all();
+		$fees=array();
+		$student ="";
+		return View::Make('backend.fees.feeviewstd',compact('classes','section','fees','academicYear','student'));
+	}
+
+
+	public function stdfeeviewpost()
+	{
+		$classes = IClass::all();
+	    $section =Section::all();
+		$academicYear =AcademicYear::all();
+		$regi =Input::get('student');
+		$fees=DB::Table('fee_collections')
+		->select(DB::RAW("billNo,payableAmount,paidAmount,dueAmount,DATE_FORMAT(payDate,'%D %M,%Y') AS date"))
+		->where('class_id',Input::get('class_id'))
+		->where('regi_no',Input::get('student'))
+		->get();
+		$totals = FeeCollection::select(DB::RAW('IFNULL(sum(payableAmount),0) as payTotal,IFNULL(sum(paidAmount),0) as paiTotal,(IFNULL(sum(payableAmount),0)- IFNULL(sum(paidAmount),0)) as dueamount'))
+		->where('class_id',Input::get('class_id'))
+		->where('regi_no',Input::get('student'))
+		->first();
+		if ($totals->payTotal) {
+		return View::Make('backend.fees.feeviewstd',compact('classes','section','academicYear','fees','totals','regi'));
+		}
+		else
+		{
+			Toastr::warning('The Student Have no fee yet:','Warning');
+			return redirect()->back();
+		}
+	}
+
+
+	public function reportstd($regiNo)
+	{
+
+		$datas=DB::Table('fee_collections')
+		->select(DB::RAW("payableAmount,paidAmount,dueAmount,DATE_FORMAT(payDate,'%D %M,%Y') AS date"))
+		->where('regi_no',$regiNo)
+		->get();
+		$totals = FeeCollection::select(DB::RAW('IFNULL(sum(payableAmount),0) as payTotal,IFNULL(sum(paidAmount),0) as paiTotal,(IFNULL(sum(payableAmount),0)- IFNULL(sum(paidAmount),0)) as dueamount'))
+		->where('regi_no',$regiNo)
+		->first();
+		$info =FeeCollection::where('regi_no',$regiNo)
+		->first();
+		$stdinfo=DB::table('fee_collections')
+		->join('registrations', 'registrations.regi_no', '=', 'fee_collections.regi_no')
+		->join('students', 'registrations.student_id', '=', 'students.id')
+		->select('registrations.*', 'students.*')
+		->where('fee_collections.regi_no',$regiNo)
+		->first();
+		  $appSettings = AppHelper::getAppSettings();
+		$rdata =array('payTotal'=>$totals->payTotal,'paiTotal'=>$totals->paiTotal,'dueAmount'=>$totals->dueamount);
+		return View::Make('backend.fees.feestdreportprint',compact('datas','rdata','info','stdinfo','appSettings'));
+	
+
+	}
+
+
+
+	public function billDetails($billNo)
+	{
+		$billDeatils = FeeHistory::select("*")
+		->where('billNo',$billNo)
+		->get();
+		return $billDeatils;
+	}
+
+
+	public function report()
+	{
+		return View::Make('backend.fees.feesreport');
+	}
+
+
+	public function reportprint($sDate,$eDate)
+	{
+		$datas= FeeCollection::select(DB::RAW('IFNULL(sum(payableAmount),0) as payTotal,IFNULL(sum(paidAmount),0) as paiTotal,(IFNULL(sum(payableAmount),0)- IFNULL(sum(paidAmount),0)) as dueamount'))
+		->whereDate('created_at', '>=', date($sDate))
+		->whereDate('created_at', '<=', date($eDate))
+		->first();
+		  $appSettings = AppHelper::getAppSettings();
+		$rdata =array('sDate'=>$this->getAppdate($sDate),'eDate'=>$this->getAppdate($eDate));
+		return View::Make('backend.fees.feesreportprint',compact('datas','rdata','appSettings'));
+	}
+
+		private function  parseAppDate($datestr)
+	{
+		$date = explode('/', $datestr);
+		return $date[2].'-'.$date[1].'-'.$date[0];
+	}
+	private function  getAppdate($datestr)
+	{
+		$date = explode('-', $datestr);
+		return $date[2].'/'.$date[1].'/'.$date[0];
 	}
 }
