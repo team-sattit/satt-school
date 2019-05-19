@@ -14,7 +14,6 @@ class PermissionMiddleware {
 	 */
 	public function handle($request, Closure $next) {
 
-<<<<<<< HEAD
 		/*$routeName = $request->route()->getName();
 
 			if (!$request->user()->can($routeName)) {
@@ -32,7 +31,7 @@ class PermissionMiddleware {
 				Auth::logout();
 				return redirect()->route('login');
 		*/
-=======
+
 		// $routeName = $request->route()->getName();
 
 		// if (!$request->user()->can($routeName)) {
@@ -50,7 +49,7 @@ class PermissionMiddleware {
 		// 	Auth::logout();
 		// 	return redirect()->route('login');
 		// }
->>>>>>> 585102386da25384cabb6412762da2b634d83c3b
+
 		return $next($request);
 	}
 }

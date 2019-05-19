@@ -309,17 +309,6 @@
             <i class="fa fa-angle-left pull-right"></i>
           </span>
         </a>
-<<<<<<< HEAD
-        <ul class="treeview-menu">
-          <li><a href="#"><i class="fa fa-circle-o"></i>Student Fees</a></li>
-          <li ><a href="{{ route('student.fee.collection') }}"><i class="fa fa-circle-o"></i> Fees Collection</a></li>
-          <li ><a href="#"><i class="fa fa-circle-o"></i> Fees List</a></li>
-          <li><a href="{{ route('student.fee.setuplist') }}"><i class="fa fa-circle-o"></i> Fees Setup</a></li>
-          <li ><a href="#"><i class="fa fa-circle-o"></i> Fee Collection Report</a></li>
-        </ul>
-      </li>
-      @endrole
-=======
           <ul class="treeview-menu">
             <li><a href="{{ route('student.fee.views') }}"><i class="fa fa-circle-o"></i>Student Fees</a></li>
             <li ><a href="{{ route('student.fee.collection') }}"><i class="fa fa-circle-o"></i> Fees Collection</a></li>
@@ -328,7 +317,6 @@
           </ul>
     </li>
    @endrole
->>>>>>> 585102386da25384cabb6412762da2b634d83c3b
       @can('user.index')
       <li>
         <a href="{{ URL::route('user.index') }}">
