@@ -89,6 +89,69 @@
 
         </ul>
       </li>
+
+        @role('Admin')
+      <li class="treeview">
+        <a href="#">
+          <i class="fa fa-user-secret"></i>
+          <span>Library</span>
+          <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+        </a>
+        <ul class="treeview-menu">
+           <li>
+            <a href="{{URL::route('library.search')}}">
+              <i class="fa fa-calendar-plus-o"></i> <span>Book Search</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{URL::route('library.issuebook')}}">
+              <i class="fa fa-calendar-plus-o"></i> <span>Borrow Book</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ route('library.issuebookview') }}">
+              <i class="fa icon-mailandsms"></i> <span>Borrowd Book List</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ route('library.issuebookview') }}">
+              <i class="fa fa-id-card"></i> <span>Book List</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="">
+              <i class="fa fa-user-md"></i> <span> Book Entry</span>
+            </a>
+          </li>
+          <li>
+            <a href="">
+              <i class="fa fa-eye-slash"></i> <span>Reports</span>
+            </a>
+          </li>
+          <li>
+            <a href="">
+              <i class="fa fa-users"></i> <span>Monthly Fine Reports</span>
+            </a>
+          </li>
+
+          {{--<li>--}}
+          {{--<a href="#">--}}
+          {{--<i class="fa fa-download"></i> <span>Backup</span>--}}
+          {{--</a>--}}
+          {{--</li>--}}
+
+          {{--<li>--}}
+          {{--<a href="#">--}}
+          {{--<i class="fa fa-upload"></i> <span>Restore</span>--}}
+          {{--</a>--}}
+          {{--</li>--}}
+
+        </ul>
+      </li>
+      @endrole
       @notrole('Student')
       <li class="treeview">
         <a href="#">
@@ -257,11 +320,10 @@
             </span>
         </a>
           <ul class="treeview-menu">
-            <li><a href=""><i class="fa fa-circle-o"></i>Student Fees</a></li>
+            <li><a href="{{ route('student.fee.views') }}"><i class="fa fa-circle-o"></i>Student Fees</a></li>
             <li ><a href="{{ route('student.fee.collection') }}"><i class="fa fa-circle-o"></i> Fees Collection</a></li>
-            <li ><a href=""><i class="fa fa-circle-o"></i> Fees List</a></li>
             <li class="{{Request::is('fees/setup*') ?'active':''}}" ><a href="{{ route('student.fee.setuplist') }}"><i class="fa fa-circle-o"></i> Fees Setup</a></li>
-            <li ><a href=""><i class="fa fa-circle-o"></i> Fee Collection Report</a></li>
+            <li ><a href="{{ route('student.fee.report') }}"><i class="fa fa-circle-o"></i> Fee Collection Report</a></li>
           </ul>
     </li>
    @endrole

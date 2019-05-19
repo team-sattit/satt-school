@@ -360,9 +360,39 @@ Route::group(
 	Route::post('/fees/setup/edit','FessController@feessetup_update')->name('student.feessetup_update'); 
     Route::post('/fees/setup/delete/','FessController@feessetup_destroy')->name('student.feessetup_destroy');
 	
-	 Route::get('/fees/collection','FessController@getCollection')->name('student.fee.collection'); 
+	Route::get('/fees/collection','FessController@getCollection')->name('student.fee.collection'); 
 
+    Route::get('/student/getList/{class}/{section}/{shift}/{session}', 'StudentController@getStudentList')->name('student.getlist');
+    //this route without permission..
+    Route::get('/fee/getListjson/{class}/{type}', 'FessController@getListjson')->name('student.fee.getListjson');
+    Route::get('/fee/getFeeInfo/{id}', 'FessController@getFeeInfo')->name('student.fee.getFeeInfo');
+    Route::get('/fee/getDue/{class}/{stdId}', 'FessController@getDue')->name('student.fee.getDue');
+    Route::post('/fees/collection', 'FessController@postCollection');
+
+    Route::get('/fees/view', 'FessController@stdfeeview')->name('student.fee.views');
+    Route::post('/fees/view', 'FessController@stdfeeviewpost')->name('student.fee.postviews');
+
+     Route::get('/fees/report', 'FessController@report')->name('student.fee.report');
+    Route::get('/fees/report/std/{regiNo}', 'FessController@reportstd')->name('student.fee.getreport');
+     Route::get('/fees/report/{sDate}/{eDate}', 'FessController@reportprint')->name('student.fee.datereport');
+    Route::get('/fees/details/{billNo}', 'FessController@billDetails')->name('student.fees.details');
+
+    //Library.....
+    Route::get('/library/search', 'LibraryController@getsearch')->name('library.search');
+    Route::post('/library/search', 'LibraryController@postsearch')->name('library.search1');
+    Route::post('/library/search2', 'LibraryController@postsearch2')->name('library.search2');
+
+    Route::get('/library/issuebookview', 'LibraryController@getissueBookview')->name('library.issuebookview');
+    Route::post('/library/issuebookview', 'LibraryController@postissueBookview')->name('library.postissuebookview');
+    Route::get('/library/issuebookupdate/{id}','LibraryController@getissueBookupdate')->name('library.issuebookupdate');
+    Route::get('/library/issuebookdelete/{id}', 'LibraryController@deleteissueBook')->name('library.issuebookdelete');
+    Route::get('/library/issuebook', 'LibraryController@getissueBook')->name('library.issuebook');
     
+
+    //check availabe book
+   Route::get('/library/issuebook-availabe/{code}/{quantity}', 'libraryController@checkBookAvailability')->name('library.issuebook-availabe');
+
+  Route::post('/library/issuebook', 'libraryController@postissueBook')->name('library.postissuebook');
 
 }
 );

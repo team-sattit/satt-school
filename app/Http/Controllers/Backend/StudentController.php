@@ -883,4 +883,14 @@ class StudentController extends Controller
         return response()->json($students);
 
     }
+
+    public function getStudentList($class,$section,$shift,$session)
+    {
+         $students = Registration::with('student')->where('academic_year_id', $session)
+            ->where('class_id', $class)
+            ->where('section_id', $section)
+            ->where('shift', $shift)
+            ->get();
+            return $students;
+    }
 }

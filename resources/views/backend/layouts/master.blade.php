@@ -108,7 +108,18 @@
 <!-- app js -->
 <script src="{{ asset(mix('/js/app.js')) }}"></script>
 
+     {!! Toastr::message() !!}
 
+        <script>
+            @if($errors->any())
+              @foreach($errors->all() as $error)
+              toastr.error('{{$error}}','Error',{
+                closeButton:true,
+                progressBar:true,
+              });
+              @endforeach
+            @endif
+        </script>
 <!-- Extra js from child page -->
 @yield("extraScript")
 <!-- END JAVASCRIPT -->
