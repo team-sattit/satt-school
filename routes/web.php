@@ -367,6 +367,7 @@ Route::group(
     Route::get('/fee/getListjson/{class}/{type}', 'FessController@getListjson')->name('student.fee.getListjson');
     Route::get('/fee/getFeeInfo/{id}', 'FessController@getFeeInfo')->name('student.fee.getFeeInfo');
     Route::get('/fee/getDue/{class}/{stdId}', 'FessController@getDue')->name('student.fee.getDue');
+    Route::get('/fees/collection/{id}','FessController@feeprint')->name('student.fee.print');
     Route::post('/fees/collection', 'FessController@postCollection');
 
     Route::get('/fees/view', 'FessController@stdfeeview')->name('student.fee.views');
@@ -383,17 +384,69 @@ Route::group(
     Route::post('/library/search2', 'LibraryController@postsearch2')->name('library.search2');
 
     Route::get('/library/issuebookview', 'LibraryController@getissueBookview')->name('library.issuebookview');
+
     Route::post('/library/issuebookview', 'LibraryController@postissueBookview')->name('library.postissuebookview');
+
     Route::get('/library/issuebookupdate/{id}','LibraryController@getissueBookupdate')->name('library.issuebookupdate');
+
+    Route::post('/library/issuebookupdate', 'libraryController@postissueBookupdate')->name('library.postissueBookupdate');
+
     Route::get('/library/issuebookdelete/{id}', 'LibraryController@deleteissueBook')->name('library.issuebookdelete');
+
     Route::get('/library/issuebook', 'LibraryController@getissueBook')->name('library.issuebook');
     
 
     //check availabe book
-   Route::get('/library/issuebook-availabe/{code}/{quantity}', 'libraryController@checkBookAvailability')->name('library.issuebook-availabe');
+   Route::get('/library/issuebook-availabe/{code}/{quantity}', 'LibraryController@checkBookAvailability')->name('library.issuebook-availabe');
 
-  Route::post('/library/issuebook', 'libraryController@postissueBook')->name('library.postissuebook');
+  Route::post('/library/issuebook', 'LibraryController@postissueBook')->name('library.postissuebook');
 
+  Route::get('/library/view-show', 'LibraryController@getviewbook')->name('library.getview-show');
+  Route::post('/library/view-show', 'LibraryController@postviewbook')->name('library.postview-show');
+
+  Route::get('/library/addbook', 'LibraryController@getAddbook')->name('library.getaddbook');
+  Route::post('/library/addbook', 'LibraryController@postAddbook')->name('library.postaddbook');
+  Route::get('/library/edit/{id}', 'LibraryController@getBook')->name('library.edit');
+  Route::post('/library/update', 'LibraryController@postUpdateBook')->name('library.update');
+  Route::get('/library/delete/{id}', 'LibraryController@deleteBook')->name('library.delete');
+
+  Route::get('/library/reports', 'LibraryController@getReports')->name('library.reports');
+  Route::get('/library/reports/fine', 'LibraryController@getReportsFine')->name('library.reports.fine');
+
+  Route::get('/library/reportprint/{do}', 'LibraryController@Reportprint')->name('library.reportprint');
+  Route::get('/library/reports/fine/{month}', 'LibraryController@ReportsFineprint')->name('library.reports.monthlyfine');
+
+
+  //gradesheet ..........
+  Route::get('/gradesheet', 'GradesheetController@index')->name('gradesheet');
+  Route::post('/gradesheet', 'GradesheetController@stdlist')->name('postgradesheet');
+  Route::get('/gradesheet/print/{regiNo}/{exam}/{class}', 'GradesheetController@printsheet')->name('gradesheet.print');
+
+  //tabulation sheet
+   Route::get('/tabulation', 'TabulationController@index')->name('tabulation');
+   Route::post('/tabulation', 'TabulationController@getsheet')->name('posttabulation');
+
+  //Result Summary
+   Route::get('/passing-summery','ResultSummaryController@passing_summary')->name('passing_summary');
+   Route::post('/passing-summery','ResultSummaryController@passing_postsummary')->name('passing_postsummary');
+
+   Route::get('/subject-pass','ResultSummaryController@subjectpass_summary')->name('subjectpass_summary');
+   Route::post('/subject-pass','ResultSummaryController@subjectpass_postsummary')->name('subjectpass_postsummary');
+
+   //Admission.....
+   Route::get('/exam/admission','AdmissionController@index')->name('admission_name');
+   Route::post('/exam/admission','AdmissionController@list')->name('admission_list');
+
+   Route::get('/admission-active/{id}','AdmissionController@active')->name('admission_active');
+   Route::get('/admission-inactive/{id}','AdmissionController@inactive')->name('admission_inactive');
+   Route::get('/admission/create','AdmissionController@create')->name('admission.create');
+   Route::post('/admission/create','AdmissionController@postadmission')->name('postadmission');
+
+
+   //get academic info
+   Route::get('/get-subject','ResultSummaryController@get_subject')->name('get-subject');
+   Route::get('/get-section','ResultSummaryController@get_section')->name('get-section');
+    Route::get('/get-exam','ResultSummaryController@get_exam')->name('get-exam');
 }
 );
 

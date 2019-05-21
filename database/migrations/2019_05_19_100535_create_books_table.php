@@ -23,7 +23,7 @@ class CreateBooksTable extends Migration
             $table->string('rowNo',10);
             $table->string('type',10);
             $table->string('class',10);
-            $table->string('desc',500);
+            $table->string('desc',500)->nullable();
             $table->timestamps();
         });
     }

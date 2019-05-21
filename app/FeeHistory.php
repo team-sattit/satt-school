@@ -8,4 +8,6 @@ class FeeHistory extends Model
 {
     protected $fillable = ['billNo','title','month','fee','lateFee','total'];
 	public $timestamps = false;
+
+	
 }

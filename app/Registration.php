@@ -11,7 +11,7 @@ class Registration extends Model
     use SoftDeletes;
     use UserstampsTrait;
 
-
+protected $with=['student','info','class','section','acYear','attendance','attendanceSingleDay','result','marks'];
     /**
      * The attributes that are mass assignable.
      *

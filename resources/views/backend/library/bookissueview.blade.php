@@ -149,7 +149,7 @@
 
                                              <td>
                                                @if($book->Status=='Borrowed')
-                                      <a title='Edit' class='btn btn-success' href='{{ route('library.issuebookupdate',$book->id) }}'> <i class="glyphicon glyphicon-pencil icon-white"></i></a>&nbsp&nbsp<a title='Delete' class='btn btn-danger' href='{{ route('library/issuebookdelete',$book->id) }}'> <i class="glyphicon glyphicon-trash icon-white"></i></a>
+                                      <a title='Edit' class='btn btn-success' href='{{ route('library.issuebookupdate',$book->id) }}'> <i class="glyphicon glyphicon-pencil icon-white"></i></a>&nbsp&nbsp<a title='Delete' class='btn btn-danger' href='{{ route('library.issuebookdelete',$book->id) }}'> <i class="glyphicon glyphicon-trash icon-white"></i></a>
                                           @endif
                                    </td>
                                        @endforeach

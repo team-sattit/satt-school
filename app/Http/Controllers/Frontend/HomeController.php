@@ -11,6 +11,7 @@ use App\AboutContent;
 use App\AboutSlider;
 use App\TeacherProfile;
 use App\Testimonial;
+use App\Admission;
 use Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -235,5 +236,17 @@ class HomeController extends Controller
         $timeline = SiteMeta::where('meta_key','timeline')->orderBy('id','desc')->get();
         return view('frontend.timeline', compact('timeline'));
 
+    }
+
+    public function admission()
+    {
+        $admission =Admission::where('status',true)->get();
+        return view('frontend.admission',compact('admission'));
+    }
+
+    public function admission_form($adid,$class_id)
+    {
+        $admis_one =Admission::find($adid);
+        return view('frontend.admission_form',compact('admis_one'));
     }
 }

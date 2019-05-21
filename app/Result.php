@@ -17,6 +17,7 @@ class Result extends Model
      *
      * @var array
      */
+    
     protected $fillable = [
         'academic_year_id',
         'class_id',
@@ -36,5 +37,15 @@ class Result extends Model
     public function exam()
     {
         return $this->belongsTo('App\Exam', 'exam_id');
+    }
+
+     public function academicyear()
+    {
+        return $this->belongsTo('App\AcademicYear', 'academic_year_id');
+    }
+
+     public function class()
+    {
+        return $this->belongsTo('App\IClass', 'class_id');
     }
 }
