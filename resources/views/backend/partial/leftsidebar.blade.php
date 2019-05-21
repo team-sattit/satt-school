@@ -77,6 +77,22 @@
             </a>
           </li>
           @endcan
+          {{-- Without Permission --}}
+         {{--  @can('academic.subject')
+         <li>
+           <a href="{{ URL::route('holidays.index') }}">
+             <i class="fa icon-subject"></i> <span>Holidays</span>
+           </a>
+         </li>
+         @endcan
+         @can('academic.subject')
+         <li>
+           <a href="{{ URL::route('class-off.index') }}">
+             <i class="fa icon-subject"></i> <span>Class Off</span>
+           </a>
+         </li>
+         @endcan
+          {{-- ================================ --}}
           {{--<li>--}}
             {{--<a href="#">--}}
               {{--<i class="fa fa-clock-o"></i><span>Routine</span>--}}
@@ -350,11 +366,11 @@
               </li>
               @endcan
               <li>
-                <a href="#">
+                <a href="{{ route('report.student_monthly_attendance_details') }}">
                   <i class="fa icon-attendance"></i> <span>Monthly Details Attendance</span>
                 </a>
               </li>
-              <li>
+             {{--  <li>
                 <a href="#">
                   <i class="fa icon-attendance"></i> <span>Monthly Individual Attendance</span>
                 </a>
@@ -383,7 +399,7 @@
                 <a href="#">
                   <i class="fa icon-attendance"></i> <span>Weekly Individual Details Attendance</span>
                 </a>
-              </li>
+              </li> --}}
               <li>
                 <a href="#">
                   <i class="fa icon-payment"></i> <span>Payment History</span>
@@ -405,19 +421,19 @@
               </span>
             </a>
             <ul class="treeview-menu">
-              <li>
+              <!-- <li>
                 <a href="#">
                   <i class="fa icon-attendance"></i> <span>Absenteeism Attendance</span>
                 </a>
+              </li> -->
+              <li>
+                <a href="{{ route('report.employee_monthly_attendance') }}"><i class="fa icon-attendance"></i> <span>Monthly Attendance</span></a>
               </li>
               <li>
-                <a href="#"><i class="fa icon-attendance"></i> <span>Monthly Attendance</span></a>
+                <a href="{{ route('report.employee_monthly_attendance_details') }}"><i class="fa icon-attendance"></i> <span>Monthly Details Attendance</span></a>
               </li>
               <li>
-                <a href="#"><i class="fa icon-attendance"></i> <span>Monthly Details Attendance</span></a>
-              </li>
-              <li>
-                <a href="#"><i class="fa icon-attendance"></i> <span>Employee List</span></a>
+                <a href="{{ route('report.employee_list') }}"><i class="fa icon-attendance"></i> <span>Employee List</span></a>
               </li>
             </ul>
           </li>

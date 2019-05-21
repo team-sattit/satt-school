@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\AcademicCalendar;
 use App\AcademicYear;
 use App\Employee;
+use App\EmployeeAttendance;
 use App\Http\Controllers\Controller;
 use App\Http\Helpers\AppHelper;
 use App\IClass;
@@ -26,7 +27,7 @@ class ReportController extends Controller {
 		if ($request->isMethod('post')) {
 			$templateId = $request->get('template_id', 0);
 			$side = $request->get('side', 'back');
-//            $howMany = intval($request->get('how_many', 0));
+			//$howMany = intval($request->get('how_many', 0));
 
 			$templateConfig = Template::where('id', $templateId)->where('type', 3)->where('role_id', AppHelper::USER_STUDENT)->first();
 
@@ -349,6 +350,154 @@ class ReportController extends Controller {
 
 	}
 
+	public function studentMonthlyAttendanceDetails(Request $request) {
+		if ($request->isMethod('post')) {
+			$rules = [
+				'class_id' => 'required|integer',
+				'section_id' => 'required|integer',
+				'month' => 'required|min:7|max:7',
+			];
+
+			if (AppHelper::getInstituteCategory() == 'college') {
+				$rules['academic_year'] = 'required|integer';
+			}
+
+			$this->validate($request, $rules);
+
+			$month = Carbon::createFromFormat('m/Y', $request->get('month'))->timezone(env('APP_TIMEZONE', 'Asia/Dhaka'));
+			$classId = $request->get('class_id', 0);
+			$sectionId = $request->get('section_id', 0);
+			if (AppHelper::getInstituteCategory() == 'college') {
+				$academicYearId = $request->get('academic_year', 0);
+			} else {
+				$academicYearId = AppHelper::getAcademicYear();
+			}
+			$monthStart = $month->startOfMonth()->copy();
+			$monthEnd = $month->endOfMonth()->copy();
+
+			$students = Registration::where('status', AppHelper::ACTIVE)
+				->where('class_id', $classId)
+				->where('academic_year_id', $academicYearId)
+				->where('section_id', $sectionId)
+				->with(['info' => function ($query) {
+					$query->select('name', 'id');
+				}])
+				->select('id', 'student_id', 'roll_no', 'regi_no')
+				->orderBy('roll_no', 'asc')
+				->get();
+
+			$studentIds = $students->pluck('id');
+			$attendanceData = StudentAttendance::whereIn('registration_id', $studentIds)
+				->whereDate('attendance_date', '>=', $monthStart->format('Y-m-d'))
+				->whereDate('attendance_date', '<=', $monthEnd->format('Y-m-d'))
+				->get()
+				->reduce(function ($attendanceData, $attendance) {
+					$inLate = 0;
+					if (strpos($attendance->status, '1') !== false) {
+						$inLate = 1;
+					}
+					$attendanceData[$attendance->registration_id][$attendance->getOriginal('attendance_date')] = [
+						'present' => $attendance->getOriginal('present'),
+						'in_time' => $attendance->in_time->format('H:i'),
+						'out_time' => $attendance->out_time->format('H:i'),
+						'staying_hour' => $attendance->getOriginal('staying_hour'),
+						'inLate' => $inLate,
+					];
+
+					return $attendanceData;
+				});
+
+			$wekends = AppHelper::getAppSettings('weekends');
+			if ($wekends) {
+				$wekends = json_decode($wekends);
+			}
+			//pull holidays
+			$calendarData = AcademicCalendar::where(function ($q) {
+				$q->where('is_holiday', '1')
+					->orWhere('is_exam', '1');
+			})
+				->where(function ($q) use ($monthStart, $monthEnd) {
+					$q->whereDate('date_from', '>=', $monthStart->format('Y-m-d'))
+						->whereDate('date_from', '<=', $monthEnd->format('Y-m-d'))
+						->orWhere(function ($q) use ($monthStart, $monthEnd) {
+							$q->whereDate('date_upto', '>=', $monthStart->format('Y-m-d'))
+								->whereDate('date_upto', '<=', $monthEnd->format('Y-m-d'));
+						});
+				})
+
+				->select('date_from', 'date_upto', 'is_holiday', 'is_exam', 'class_ids')
+				->get()
+				->reduce(function ($calendarData, $calendar) use ($monthEnd, $monthStart, $wekends) {
+
+					$startDate = $calendar->date_from;
+					$endDate = $calendar->date_upto;
+					if ($calendar->date_upto->gt($monthEnd)) {
+						$endDate = $monthEnd;
+					}
+
+					if ($calendar->date_from->lt($monthStart)) {
+						$startDate = $monthStart;
+					}
+
+					$cladendarDateRange = AppHelper::generateDateRangeForReport($startDate, $endDate, true, $wekends, true);
+					foreach ($cladendarDateRange as $date => $value) {
+						$symbols = 'H';
+						if ($calendar->is_exam == 1) {
+							$symbols = 'E';
+						}
+						$calendarData[$date] = $symbols;
+					}
+					return $calendarData;
+				});
+
+			$monthDates = AppHelper::generateDateRangeForReport($monthStart, $monthEnd, true, $wekends);
+
+			$headerData = new \stdClass();
+			$headerData->reportTitle = 'Monthly Details Attendance';
+			$headerData->reportSubTitle = 'Month: ' . $month->format('F,Y');
+
+			$filters = [];
+			if (AppHelper::getInstituteCategory() == 'college') {
+				$academicYearInfo = AcademicYear::where('id', $academicYearId)->first();
+				$filters[] = "Academic year: " . $academicYearInfo->title;
+			}
+			$section = Section::where('id', $sectionId)
+				->with(['class' => function ($q) {
+					$q->select('name', 'id');
+				}])
+				->select('id', 'class_id', 'name')
+				->first();
+
+			$filters[] = "Class: " . $section->class->name;
+			$filters[] = "Section: " . $section->name;
+
+			return view('backend.report.student.attendance.monthly_print_details', compact(
+				'headerData',
+				'monthDates',
+				'students',
+				'attendanceData',
+				'calendarData',
+				'filters'
+			));
+		}
+
+		$classes = IClass::where('status', AppHelper::ACTIVE)
+			->orderBy('order', 'asc')
+			->pluck('name', 'id');
+
+		//if its college then have to get those academic years
+		$academic_years = [];
+		if (AppHelper::getInstituteCategory() == 'college') {
+			$academic_years = AcademicYear::where('status', '1')->orderBy('id', 'desc')->pluck('title', 'id');
+		}
+
+		return view('backend.report.student.attendance.monthly_details', compact(
+			'academic_years',
+			'classes'
+		));
+
+	}
+
 	/**
 	 * Student list print
 	 * @param Request $request
@@ -490,6 +639,242 @@ class ReportController extends Controller {
 		return view('backend.report.student.list', compact(
 			'academic_years',
 			'classes',
+			'activeTab'
+		));
+	}
+
+	public function employeeMonthlyAttendance(Request $request) {
+
+		if ($request->isMethod('post')) {
+			$rules = [
+				'month' => 'required|min:7|max:7',
+			];
+
+			$this->validate($request, $rules);
+
+			$month = Carbon::createFromFormat('m/Y', $request->get('month'))->timezone(env('APP_TIMEZONE', 'Asia/Dhaka'));
+			$monthStart = $month->startOfMonth()->copy();
+			$monthEnd = $month->endOfMonth()->copy();
+
+			$employees = Employee::where('status', AppHelper::ACTIVE)
+				->get();
+
+			$employeeIds = $employees->pluck('id');
+			$attendanceData = EmployeeAttendance::select('employee_id', 'attendance_date', 'present', 'status')
+				->whereIn('employee_id', $employeeIds)
+				->whereDate('attendance_date', '>=', $monthStart->format('Y-m-d'))
+				->whereDate('attendance_date', '<=', $monthEnd->format('Y-m-d'))
+				->get()
+				->reduce(function ($attendanceData, $attendance) {
+					$inLate = 0;
+					if (strpos($attendance->status, '1') !== false) {
+						$inLate = 1;
+					}
+					$attendanceData[$attendance->employee_id][$attendance->getOriginal('attendance_date')] = [
+						'present' => $attendance->getOriginal('present'),
+						'inLate' => $inLate,
+					];
+
+					return $attendanceData;
+				});
+
+			$wekends = AppHelper::getAppSettings('weekends');
+			if ($wekends) {
+				$wekends = json_decode($wekends);
+			}
+			//pull holidays
+			$calendarData = AcademicCalendar::where(function ($q) {
+				$q->where('is_holiday', '1')
+					->orWhere('is_exam', '1');
+			})
+				->where(function ($q) use ($monthStart, $monthEnd) {
+					$q->whereDate('date_from', '>=', $monthStart->format('Y-m-d'))
+						->whereDate('date_from', '<=', $monthEnd->format('Y-m-d'))
+						->orWhere(function ($q) use ($monthStart, $monthEnd) {
+							$q->whereDate('date_upto', '>=', $monthStart->format('Y-m-d'))
+								->whereDate('date_upto', '<=', $monthEnd->format('Y-m-d'));
+						});
+				})
+
+				->select('date_from', 'date_upto', 'is_holiday', 'is_exam', 'class_ids')
+				->get()
+				->reduce(function ($calendarData, $calendar) use ($monthEnd, $monthStart, $wekends) {
+
+					$startDate = $calendar->date_from;
+					$endDate = $calendar->date_upto;
+					if ($calendar->date_upto->gt($monthEnd)) {
+						$endDate = $monthEnd;
+					}
+
+					if ($calendar->date_from->lt($monthStart)) {
+						$startDate = $monthStart;
+					}
+
+					$cladendarDateRange = AppHelper::generateDateRangeForReport($startDate, $endDate, true, $wekends, true);
+					foreach ($cladendarDateRange as $date => $value) {
+						$symbols = 'H';
+						if ($calendar->is_exam == 1) {
+							$symbols = 'E';
+						}
+						$calendarData[$date] = $symbols;
+					}
+					return $calendarData;
+				});
+
+			$monthDates = AppHelper::generateDateRangeForReport($monthStart, $monthEnd, true, $wekends);
+
+			$headerData = new \stdClass();
+			$headerData->reportTitle = 'Monthly Attendance';
+			$headerData->reportSubTitle = 'Month: ' . $month->format('F,Y');
+
+			return view('backend.report.hrm.employee.attendance.monthly_print', compact(
+				'headerData',
+				'monthDates',
+				'employees',
+				'attendanceData',
+				'calendarData'
+			));
+		}
+
+		return view('backend.report.hrm.employee.attendance.monthly');
+
+	}
+
+	public function employeeMonthlyAttendanceDetails(Request $request) {
+		if ($request->isMethod('post')) {
+			$rules = [
+				'month' => 'required|min:7|max:7',
+			];
+
+			$this->validate($request, $rules);
+
+			$month = Carbon::createF+-romFormat('m/Y', $request->get('month'))->timezone(env('APP_TIMEZONE', 'Asia/Dhaka'));
+			$monthStart = $month->startOfMonth()->copy();
+			$monthEnd = $month->endOfMonth()->copy();
+
+			$employees = Employee::where('status', AppHelper::ACTIVE)
+				->get();
+
+			$employeeIds = $employees->pluck('id');
+			$attendanceData = EmployeeAttendance::whereIn('employee_id', $employeeIds)
+				->whereDate('attendance_date', '>=', $monthStart->format('Y-m-d'))
+				->whereDate('attendance_date', '<=', $monthEnd->format('Y-m-d'))
+				->get()
+				->reduce(function ($attendanceData, $attendance) {
+					$inLate = 0;
+					if (strpos($attendance->status, '1') !== false) {
+						$inLate = 1;
+					}
+					$attendanceData[$attendance->employee_id][$attendance->getOriginal('attendance_date')] = [
+						'present' => $attendance->getOriginal('present'),
+						'in_time' => $attendance->in_time->format('H:i'),
+						'out_time' => $attendance->out_time->format('H:i'),
+						'staying_hour' => $attendance->getOriginal('working_hour'),
+					];
+
+					return $attendanceData;
+				});
+
+			$wekends = AppHelper::getAppSettings('weekends');
+			if ($wekends) {
+				$wekends = json_decode($wekends);
+			}
+			//pull holidays
+			$calendarData = AcademicCalendar::where(function ($q) {
+				$q->where('is_holiday', '1')
+					->orWhere('is_exam', '1');
+			})
+				->where(function ($q) use ($monthStart, $monthEnd) {
+					$q->whereDate('date_from', '>=', $monthStart->format('Y-m-d'))
+						->whereDate('date_from', '<=', $monthEnd->format('Y-m-d'))
+						->orWhere(function ($q) use ($monthStart, $monthEnd) {
+							$q->whereDate('date_upto', '>=', $monthStart->format('Y-m-d'))
+								->whereDate('date_upto', '<=', $monthEnd->format('Y-m-d'));
+						});
+				})
+
+				->select('date_from', 'date_upto', 'is_holiday', 'is_exam', 'class_ids')
+				->get()
+				->reduce(function ($calendarData, $calendar) use ($monthEnd, $monthStart, $wekends) {
+
+					$startDate = $calendar->date_from;
+					$endDate = $calendar->date_upto;
+					if ($calendar->date_upto->gt($monthEnd)) {
+						$endDate = $monthEnd;
+					}
+
+					if ($calendar->date_from->lt($monthStart)) {
+						$startDate = $monthStart;
+					}
+
+					$cladendarDateRange = AppHelper::generateDateRangeForReport($startDate, $endDate, true, $wekends, true);
+					foreach ($cladendarDateRange as $date => $value) {
+						$symbols = 'H';
+						if ($calendar->is_exam == 1) {
+							$symbols = 'E';
+						}
+						$calendarData[$date] = $symbols;
+					}
+					return $calendarData;
+				});
+
+			$monthDates = AppHelper::generateDateRangeForReport($monthStart, $monthEnd, true, $wekends);
+
+			$headerData = new \stdClass();
+			$headerData->reportTitle = 'Monthly Attendance Details';
+			$headerData->reportSubTitle = 'Month: ' . $month->format('F,Y');
+
+			return view('backend.report.hrm.employee.attendance.monthly_print_details', compact(
+				'headerData',
+				'monthDates',
+				'employees',
+				'attendanceData',
+				'calendarData'
+			));
+		}
+
+		return view('backend.report.hrm.employee.attendance.monthly_details');
+
+	}
+	public function employeeList(Request $request) {
+
+		$activeTab = 1;
+
+		if ($request->isMethod('post')) {
+
+			$employees = collect();
+			if ($request->get('form_name') == 'all') {
+
+				$employees = Employee::where('status', AppHelper::ACTIVE)
+					->get();
+
+			} else {
+
+				//filter input
+				$gender = intval($request->get('gender', 0));
+				$religion = intval($request->get('religion', 0));
+
+				$employees = Employee::where('status', AppHelper::ACTIVE)
+
+					->where(function ($q) use ($gender, $religion) {
+						$q->if($religion, 'religion', '=', $religion)
+							->if($gender, 'gender', '=', $gender);
+					})->get();
+
+				$filters[] = "Gender: " . ($gender ? AppHelper::GENDER[$gender] : 'All');
+				$filters[] = "Religion: " . ($religion ? AppHelper::RELIGION[$religion] : 'All');
+			}
+
+			$headerData = new \stdClass();
+			$headerData->reportTitle = 'Employee List';
+			$headerData->reportSubTitle = '';
+
+			return view('backend.report.hrm.employee.list_print', compact('headerData', 'employees', 'filters'));
+		}
+
+		//if its college then have to get those academic years
+
+		return view('backend.report.hrm.employee.list', compact(
 			'activeTab'
 		));
 	}

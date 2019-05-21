@@ -345,12 +345,25 @@ Route::group(
 		Route::any('report/student-list', 'ReportController@studentList')
 			->name('report.student_list');
 
-		//this route has no permission
+		//================this route has no permission===================
+		Route::any('report/student-monthly-attendance-details', 'ReportController@studentMonthlyAttendanceDetails')
+			->name('report.student_monthly_attendance_details');
 
-		Route::any('report/student-monthly-attendance', 'ReportController@studentMonthlyAttendance')
-			->name('report.student_monthly_attendance');
-		Route::any('report/student-list', 'ReportController@studentList')
-			->name('report.student_list');
+		Route::any('report/employee-monthly-attendance', 'ReportController@employeeMonthlyAttendance')
+			->name('report.employee_monthly_attendance');
+		Route::any('report/employee-list', 'ReportController@employeeList')
+			->name('report.employee_list');
+		Route::any('report/employee-monthly-attendance-details', 'ReportController@employeeMonthlyAttendanceDetails')
+			->name('report.employee_monthly_attendance_details');
+
+		/*Route::get('/holidays', 'HolidayController@index')->name('holidays.index');
+			Route::post('/holidays', 'HolidayController@store')->name('holidays.store');
+			Route::get('/holidays/delete/{id}', 'HolidayController@destroy')->name('holidays.delete');
+
+			Route::get('/class-off', 'ClassOffController@index')->name('class-off.index');
+			Route::post('/class-off', 'ClassOffController@store')->name('class-off.store');
+		*/
+		//=============================================================
 		//Fees
 		Route::get('/fees/setup/list', 'FessController@getsetuplist')->name('student.fee.setuplist');
 		Route::get('/fees/setup', 'FessController@getsetup')->name('student.fee.setup');
