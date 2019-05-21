@@ -365,11 +365,13 @@
                 </a>
               </li>
               @endcan
+              @can('eport.student_monthly_attendance_details')
               <li>
                 <a href="{{ route('report.student_monthly_attendance_details') }}">
                   <i class="fa icon-attendance"></i> <span>Monthly Details Attendance</span>
                 </a>
               </li>
+              @endcan
              {{--  <li>
                 <a href="#">
                   <i class="fa icon-attendance"></i> <span>Monthly Individual Attendance</span>
@@ -400,16 +402,18 @@
                   <i class="fa icon-attendance"></i> <span>Weekly Individual Details Attendance</span>
                 </a>
               </li> --}}
-              <li>
+              {{-- <li>
                 <a href="#">
                   <i class="fa icon-payment"></i> <span>Payment History</span>
-                </a>
+                </a> --}}
               </li>
+              @can('report.student_list')
               <li>
                 <a href="{{route('report.student_list')}}">
                   <i class="fa icon-student"></i> <span>Student List</span>
                 </a>
               </li>
+              @endcan
             </ul>
           </li>
           <li class="treeview">
@@ -426,15 +430,21 @@
                   <i class="fa icon-attendance"></i> <span>Absenteeism Attendance</span>
                 </a>
               </li> -->
+              @can('report.employee_monthly_attendance')
               <li>
                 <a href="{{ route('report.employee_monthly_attendance') }}"><i class="fa icon-attendance"></i> <span>Monthly Attendance</span></a>
               </li>
+              @endcan
+              @can('report.employee_monthly_attendance_details')
               <li>
                 <a href="{{ route('report.employee_monthly_attendance_details') }}"><i class="fa icon-attendance"></i> <span>Monthly Details Attendance</span></a>
               </li>
+              @endcan
+              @can('report.employee_list')
               <li>
                 <a href="{{ route('report.employee_list') }}"><i class="fa icon-attendance"></i> <span>Employee List</span></a>
               </li>
+              @endcan
             </ul>
           </li>
           <li class="treeview">
@@ -444,18 +454,21 @@
               <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
             </a>
             <ul class="treeview-menu">
+              @can('admission_name')
               <li>
                 <a href="{{ route('admission_name') }}"><i class="fa fa-id-card"></i> <span>Admision</span></a>
               </li>
+              @endcan
+{{--
               <li>
                 <a href="#"><i class="fa fa-id-card"></i> <span>Applicant List</span></a>
-              </li>
-              <li>
+              </li> --}}
+              {{-- <li>
                 <a href="#"><i class="fa fa-id-card"></i> <span>Admit Card</span></a>
               </li>
               <li>
                 <a href="#"><i class="fa fa-sort-numeric-asc"></i> <span>Seat Plan</span></a>
-              </li>
+              </li> --}}
             </ul>
           </li>
           <li class="treeview">
@@ -467,29 +480,37 @@
               </span>
             </a>
             <ul class="treeview-menu">
+              @can('passing_summary')
               <li>
                 <a href="{{ route('passing_summary') }}"><i class="fa fa-list-alt"></i><span>Passing Summery(Class)</span></a>
               </li>
+              @endcan
+              @can('subjectpass_summary')
               <li>
                 <a href="{{ route('subjectpass_summary') }}"><i class="fa fa-list-alt"></i><span>Passing Summery(Subject)</span></a>
               </li>
+              @endcan
+              {{--
               <li>
                 <a href="#"><i class="fa fa-list-alt"></i><span>Pass-Fail Percentage</span></a>
               </li>
               <li>
                 <a href="#"><i class="fa fa-list-alt"></i><span>Pass-Fail Summery</span></a>
               </li>
-          
+ --}}
+              @can('gradesheet')
               <li>
                 <a href="{{ route('gradesheet') }}"><i class="fa fa-list-alt"></i><span>Marksheet</span></a>
               </li>
-          
+              @endcan
+              @can('tabulation')
               <li>
                 <a href="{{ route('tabulation') }}"><i class="fa fa-list-alt"></i><span>Tabulationsheet</span></a>
               </li>
+              @endcan
             </ul>
           </li>
-          <li class="treeview">
+          {{-- <li class="treeview">
             <a href="#">
               <i class="fa icon-hostel"></i>
               <span>Hostel</span>
@@ -579,7 +600,7 @@
             <a href="#">
               <i class="fa icon-attendance"></i> <span>Academic Calendar</span>
             </a>
-          </li>
+          </li> --}}
         </ul>
       </li>
       @role('Admin')

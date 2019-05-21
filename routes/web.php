@@ -360,7 +360,7 @@ Route::group(
 		Route::get('/fee/getFeeInfo/{id}', 'FessController@getFeeInfo')->name('student.fee.getFeeInfo');
 		Route::get('/fee/getDue/{class}/{stdId}', 'FessController@getDue')->name('student.fee.getDue');
 		Route::get('/fees/collection/{id}', 'FessController@feeprint')->name('student.fee.print');
-		Route::post('/fees/collection', 'FessController@postCollection');
+		Route::post('/fees/collection', 'FessController@postCollection')->name('student.fee.postcollection');
 
 		Route::get('/fees/view', 'FessController@stdfeeview')->name('student.fee.views');
 		Route::post('/fees/view', 'FessController@stdfeeviewpost')->name('student.fee.postviews');
