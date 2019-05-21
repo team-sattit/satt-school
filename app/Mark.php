@@ -51,4 +51,9 @@ class Mark extends Model
     {
         return $this->belongsTo('App\Subject', 'subject_id');
     }
+
+      public function academicyear()
+    {
+        return $this->belongsTo('App\AcademicYear', 'academic_year_id');
+    }
 }

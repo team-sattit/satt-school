@@ -67,6 +67,7 @@ return [
     'not_found_title' => 'This page doesn\'t exist.',
     'code_500' => '500',
     'code_500_title' => 'Internal Server Error! Contact System Administrator.',
+    'admission'=>'Admission'
 
 
 

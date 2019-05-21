@@ -438,6 +438,7 @@ class AppHelper {
 		DB::unprepared("CREATE TRIGGER subject_au AFTER UPDATE ON subjects FOR EACH ROW
     INSERT INTO subject_history SELECT 'update', NULL, d.*
     FROM subjects AS d WHERE d.id = NEW.id;");
+
 	}
 
 	/**
@@ -803,4 +804,59 @@ class AppHelper {
 		return $split[0] . ':' . $split[1];
 	}
 
+	public static function getmonth($id) {
+		switch ($id) {
+		case 1:
+			return "January";
+			break;
+		case 2:
+			return "February";
+			break;
+		case 3:
+			return "Merch";
+			break;
+		case 4:
+			return "Aprail";
+			break;
+		case 5:
+			return "May";
+			break;
+
+		case 6:
+			return "June";
+			break;
+		case 7:
+			return "July";
+			break;
+		case 8:
+			return "August";
+			break;
+		case 9:
+			return "September";
+			break;
+		case 10:
+			return "Octobor";
+			break;
+		case 11:
+			return "November";
+			break;
+		case 12:
+			return "December";
+			break;
+		case -1:
+			return "Others";
+			break;
+		default:
+			return "No month";
+		}
+	}
+
+	public function getmarktype($exam, $mark, $value) {
+		$exam = json_decode($exam->marks_distribution_types, true);
+		$mark = json_decode($mark->marks, true);
+		if (in_array($value, $exam) && in_array($value, $mark)) {
+
+		}
+
+	}
 }

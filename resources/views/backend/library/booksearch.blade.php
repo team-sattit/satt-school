@@ -168,7 +168,7 @@
                   <td>{{$book->code}}</td>
                   <td>{{$book->title}}</td>
                   <td>{{$book->author}}</td>
-                  <td>{{$book->class}}</td>
+                  <td>{{$book->classes->name}}</td>
                   <td>{{$book->type}}</td>
                   <td>{{$book->quantity}}</td>
                   <td>{{$book->rackNo}}</td>

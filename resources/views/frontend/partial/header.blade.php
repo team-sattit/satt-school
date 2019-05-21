@@ -82,6 +82,10 @@
 
 						</li>
 						<li>
+							<a href="{{URL::route('site.admission')}}">@lang('site.admission')</a>
+
+						</li>
+						<li>
 							<a href="{{URL::route('site.gallery_view')}}" >@lang('site.menu_gallery')</a>
 						</li>
 						<li>

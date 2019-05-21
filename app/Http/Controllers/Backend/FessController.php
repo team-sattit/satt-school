@@ -198,7 +198,7 @@ class FessController extends Controller {
 
 						}
 					});
-					return Redirect::to('/fees/collection')->with("success","Fee collection succesfull.");
+					return redirect()->route('student.fee.print',$billId);
 				}
 				else {
 					Toastr::warning('Please Add Atlest one Fee:','Warning');
@@ -314,5 +314,12 @@ class FessController extends Controller {
 	{
 		$date = explode('-', $datestr);
 		return $date[2].'/'.$date[1].'/'.$date[0];
+	}
+
+	public function feeprint($id)
+	{
+		$feecolect =FeeCollection::where('billNo',$id)->first();
+		 $appSettings = AppHelper::getAppSettings();
+		return View::Make('backend.fees.feecollectprint',compact('feecolect','appSettings'));
 	}
 }

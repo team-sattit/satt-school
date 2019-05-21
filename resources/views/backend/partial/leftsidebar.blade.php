@@ -127,23 +127,23 @@
             </a>
           </li>
           <li>
-            <a href="{{ route('library.issuebookview') }}">
+            <a href="{{ route('library.getview-show') }}">
               <i class="fa fa-id-card"></i> <span>Book List</span>
             </a>
           </li>
 
           <li>
-            <a href="">
+            <a href="{{ route('library.getaddbook') }}">
               <i class="fa fa-user-md"></i> <span> Book Entry</span>
             </a>
           </li>
           <li>
-            <a href="">
+            <a href="{{ route('library.reports') }}">
               <i class="fa fa-eye-slash"></i> <span>Reports</span>
             </a>
           </li>
           <li>
-            <a href="">
+            <a href="{{ route('library.reports.fine') }}">
               <i class="fa fa-users"></i> <span>Monthly Fine Reports</span>
             </a>
           </li>
@@ -445,6 +445,12 @@
             </a>
             <ul class="treeview-menu">
               <li>
+                <a href="{{ route('admission_name') }}"><i class="fa fa-id-card"></i> <span>Admision</span></a>
+              </li>
+              <li>
+                <a href="#"><i class="fa fa-id-card"></i> <span>Applicant List</span></a>
+              </li>
+              <li>
                 <a href="#"><i class="fa fa-id-card"></i> <span>Admit Card</span></a>
               </li>
               <li>
@@ -462,10 +468,10 @@
             </a>
             <ul class="treeview-menu">
               <li>
-                <a href="#"><i class="fa fa-list-alt"></i><span>Passing Summery(Class)</span></a>
+                <a href="{{ route('passing_summary') }}"><i class="fa fa-list-alt"></i><span>Passing Summery(Class)</span></a>
               </li>
               <li>
-                <a href="#"><i class="fa fa-list-alt"></i><span>Passing Summery(Subject)</span></a>
+                <a href="{{ route('subjectpass_summary') }}"><i class="fa fa-list-alt"></i><span>Passing Summery(Subject)</span></a>
               </li>
               <li>
                 <a href="#"><i class="fa fa-list-alt"></i><span>Pass-Fail Percentage</span></a>
@@ -473,20 +479,13 @@
               <li>
                 <a href="#"><i class="fa fa-list-alt"></i><span>Pass-Fail Summery</span></a>
               </li>
+          
               <li>
-                <a href="#"><i class="fa fa-list-alt"></i><span>Merit Position</span></a>
+                <a href="{{ route('gradesheet') }}"><i class="fa fa-list-alt"></i><span>Marksheet</span></a>
               </li>
+          
               <li>
-                <a href="#"><i class="fa fa-list-alt"></i><span>Highest Marks</span></a>
-              </li>
-              <li>
-                <a href="#"><i class="fa fa-list-alt"></i><span>Marksheet</span></a>
-              </li>
-              <li>
-                <a href="#"><i class="fa fa-list-alt"></i><span>Marksheet Public</span></a>
-              </li>
-              <li>
-                <a href="#"><i class="fa fa-list-alt"></i><span>Tabulationsheet</span></a>
+                <a href="{{ route('tabulation') }}"><i class="fa fa-list-alt"></i><span>Tabulationsheet</span></a>
               </li>
             </ul>
           </li>
