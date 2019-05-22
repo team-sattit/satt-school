@@ -365,7 +365,7 @@
                 </a>
               </li>
               @endcan
-              @can('eport.student_monthly_attendance_details')
+              @can('report.student_monthly_attendance_details')
               <li>
                 <a href="{{ route('report.student_monthly_attendance_details') }}">
                   <i class="fa icon-attendance"></i> <span>Monthly Details Attendance</span>
