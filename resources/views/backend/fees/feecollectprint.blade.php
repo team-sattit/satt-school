@@ -47,13 +47,13 @@
             <div class="box-content">
           <div style="text-align: center;" >
        <img  src="@if(isset($appSettings['institute_settings']['logo'])) {{asset('storage/logo/'.$appSettings['institute_settings']['logo'])}} @else {{ asset('images/logo-md.png') }} @endif" alt="logo-md" class="img-responsive center-block">
-     <b> <p style="text-align: center;">{{$appSettings['institute_settings']['name']}}</p></b>
+     <b> <p style="text-align: center;">{{isset($appSettings['institute_settings'])?$appSettings['institute_settings']['name']:'Satt School'}}</p></b>
      <span>
-         <strong>Establish:</strong> {{$appSettings['institute_settings']['establish']}}
-         <strong>Web:</strong> <a href="{{$appSettings['institute_settings']['website_link']}}" target="_blank">{{$appSettings['institute_settings']['website_link']}}</a> <br>
-         <strong>Email:</strong> {{$appSettings['institute_settings']['email']}}
-         <strong>Phone:</strong> {{$appSettings['institute_settings']['phone_no']}} <br>
-         <strong>Address:</strong> {{$appSettings['institute_settings']['address']}}
+         <strong>Establish:</strong> {{isset($appSettings['institute_settings'])?$appSettings['institute_settings']['establish']:'2018'}}
+         <strong>Web:</strong> <a href="{{isset($appSettings['institute_settings'])?$appSettings['institute_settings']['website_link']:'https://sattit.com'}}" target="_blank">{{isset($appSettings['institute_settings'])?$appSettings['institute_settings']['website_link']:'htpps://sattit.com'}}</a> <br>
+         <strong>Email:</strong> {{isset($appSettings['institute_settings'])?$appSettings['institute_settings']['email']:'satt@sattit.com'}}
+         <strong>Phone:</strong> {{isset($appSettings['institute_settings'])?$appSettings['institute_settings']['phone_no']:'01740390336'}} <br>
+         <strong>Address:</strong> {{isset($appSettings['institute_settings'])?$appSettings['institute_settings']['address']:'Talaimari Rajshahi'}}
      </span>
        </div>
 
