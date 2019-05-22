@@ -1360,7 +1360,6 @@ class PermissionTableSeeder extends Seeder {
 				"group" => "Fees",
 			],
 
-
 			[
 				"slug" => "student.fee.postcollection",
 				"name" => "StudentFeePost View",

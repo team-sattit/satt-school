@@ -101,7 +101,6 @@
         </ul>
       </li>
 
-        @role('Admin')
       <li class="treeview">
         <a href="#">
           <i class="fa fa-user-secret"></i>
@@ -162,7 +161,6 @@
 
         </ul>
       </li>
-      @endrole
       @notrole('Student')
       <li class="treeview">
         <a href="#">
@@ -316,7 +314,6 @@
         </ul>
       </li>
       @endrole
-      @role('Admin')
       <li class="treeview">
         <a href="#">
           <i class="fa fa-user-secret"></i>
@@ -332,7 +329,6 @@
             <li ><a href="{{ route('student.fee.report') }}"><i class="fa fa-circle-o"></i> Fee Collection Report</a></li>
           </ul>
     </li>
-   @endrole
       @can('user.index')
       <li>
         <a href="{{ URL::route('user.index') }}">
