@@ -1026,32 +1026,32 @@ class PermissionTableSeeder extends Seeder {
 			// Report
 			[
 				"slug" => "report.student_monthly_attendance",
-				"name" => "Student Monthly Attendance View",
+				"name" => "Attendance View",
 				"group" => "Report",
 			],
 			[
 				"slug" => "report.student_list",
-				"name" => "Student List View",
+				"name" => "Studentlist View",
 				"group" => "Report",
 			],
 			[
 				"slug" => "report.student_monthly_attendance_details",
-				"name" => "Student Monthly Attandance Details",
+				"name" => "MonthlyAttandance View",
 				"group" => "Report",
 			],
 			[
 				"slug" => "report.employee_monthly_attendance",
-				"name" => "Employee Monthly Attandance ",
+				"name" => "EmployeeAttandance View ",
 				"group" => "Report",
 			],
 			[
 				"slug" => "report.employee_list",
-				"name" => "Employee List",
+				"name" => "Employee View",
 				"group" => "Report",
 			],
 			[
 				"slug" => "report.employee_monthly_attendance_details",
-				"name" => "Employee Monthly Attandance Details",
+				"name" => "EmployeeAttandance View",
 				"group" => "Report",
 			],
 
@@ -1062,114 +1062,114 @@ class PermissionTableSeeder extends Seeder {
 			// Library
 			[
 				"slug" => "library.search",
-				"name" => "Library Search",
+				"name" => "LibrarySearchBook View",
 				"group" => "Library",
 			],
 			[
 				"slug" => "library.search1",
-				"name" => "Library Search Result1",
+				"name" => "LibrarySearchBook Create",
 				"group" => "Library",
 			],
 			[
 				"slug" => "library.search2",
-				"name" => "Library Search Result2",
+				"name" => "LibrarySearchBook Create",
 				"group" => "Library",
 			],
 			[
 				"slug" => "library.issuebookview",
-				"name" => "Library Book Issue ",
+				"name" => "LibraryBookIssue View ",
 				"group" => "Library",
 			],
 			[
 				"slug" => "library.postissuebookview",
-				"name" => "Library Book View",
+				"name" => "LibraryBook View",
 				"group" => "Library",
 			],
 			[
 				"slug" => "library.issuebookupdate",
-				"name" => "Library Book Issue Edit",
+				"name" => "LibraryBookIssue Edit",
 				"group" => "Library",
 			],
 
 			[
 				"slug" => "library.postissueBookupdate",
-				"name" => "Library Book Issue Update",
+				"name" => "LibraryBookIssue Edit",
 				"group" => "Library",
 			],
 			[
 				"slug" => "library.issuebookdelete",
-				"name" => "Library Book Delete",
+				"name" => "LibraryBook Delete",
 				"group" => "Library",
 			],
 			[
 				"slug" => "library.issuebook",
-				"name" => "Library Book Issue List",
+				"name" => "LibraryBookIssue View",
 				"group" => "Library",
 			],
 			[
 				"slug" => "library.issuebook-availabe",
-				"name" => "Library Check Issue Book ",
+				"name" => "LibraryCheckIssue View ",
 				"group" => "Library",
 			],
 
 			[
 				"slug" => "library.postissuebook",
-				"name" => "Library Check Issue Book List ",
+				"name" => "LibraryCheckIssueBookList View ",
 				"group" => "Library",
 			],
 			[
 				"slug" => "library.getview-show",
-				"name" => "Library Book View ",
+				"name" => "LibraryBook View ",
 				"group" => "Library",
 			],
 			[
 				"slug" => "library.postview-show",
-				"name" => "Library Book View Result ",
+				"name" => "LibraryBook View  ",
 				"group" => "Library",
 			],
 			[
 				"slug" => "library.getaddbook",
-				"name" => "Library Book Entry ",
+				"name" => "LibraryBook Create ",
 				"group" => "Library",
 			],
 			[
 				"slug" => "library.postaddbook",
-				"name" => "Library Book Entry Result ",
+				"name" => "LibraryBook Create",
 				"group" => "Library",
 			],
 			[
 				"slug" => "library.edit",
-				"name" => "Library Book Edit ",
+				"name" => "LibraryBook Edit ",
 				"group" => "Library",
 			],
 			[
 				"slug" => "library.update",
-				"name" => "Library Book Update ",
+				"name" => "LibraryBook Edit ",
 				"group" => "Library",
 			],
 			[
 				"slug" => "library.delete",
-				"name" => "Library Book Delete ",
+				"name" => "LibraryBook Delete ",
 				"group" => "Library",
 			],
 			[
 				"slug" => "library.reports",
-				"name" => "Library Report ",
+				"name" => "LibraryReport View ",
 				"group" => "Library",
 			],
 			[
 				"slug" => "library.reports.fine",
-				"name" => "Library Fine Report ",
+				"name" => "LibraryFineReport View",
 				"group" => "Library",
 			],
 			[
 				"slug" => "library.reportprint",
-				"name" => "Library Report Print",
+				"name" => "LibraryReportPrint View",
 				"group" => "Library",
 			],
 			[
 				"slug" => "library.reports.monthlyfine",
-				"name" => "Library Monthly Fine Report ",
+				"name" => "LibraryMonthlyFineReport View",
 				"group" => "Library",
 			],
 
@@ -1185,12 +1185,12 @@ class PermissionTableSeeder extends Seeder {
 			],
 			[
 				"slug" => "postgradesheet",
-				"name" => "Gradesheet Post",
+				"name" => "Gradesheet Create",
 				"group" => "Gradesheet",
 			],
 			[
 				"slug" => "gradesheet.print",
-				"name" => "Gradesheet Print",
+				"name" => "GradesheetPrint View",
 				"group" => "Gradesheet",
 			],
 			//Gradesheet
@@ -1205,7 +1205,7 @@ class PermissionTableSeeder extends Seeder {
 			],
 			[
 				"slug" => "posttabulation",
-				"name" => "Tabulation Post",
+				"name" => "Tabulation Create",
 				"group" => "TabulationSheet",
 			],
 
@@ -1216,23 +1216,23 @@ class PermissionTableSeeder extends Seeder {
 			//ResultSummary
 			[
 				"slug" => "passing_summary",
-				"name" => "Passing Summary ",
+				"name" => "PassingSummary View ",
 				"group" => "ResultSummary",
 			],
 			[
 				"slug" => "passing_postsummary",
-				"name" => "Passing Summary List",
+				"name" => "PassingSummary View",
 				"group" => "ResultSummary",
 			],
 			[
 				"slug" => "subjectpass_summary",
-				"name" => "Subject Wise pass Summary",
+				"name" => "SubjectWisePassSummary View",
 				"group" => "ResultSummary",
 			],
 
 			[
 				"slug" => "subjectpass_postsummary",
-				"name" => "Subject Wise pass Summary List",
+				"name" => "SubjectWisePassSummaryList View",
 				"group" => "ResultSummary",
 			],
 
@@ -1243,23 +1243,23 @@ class PermissionTableSeeder extends Seeder {
 			//Admission
 			[
 				"slug" => "admission_name",
-				"name" => "Admission Name",
+				"name" => "Admission View",
 				"group" => "Admission",
 			],
 			[
 				"slug" => "admission_list",
-				"name" => "Admission  List",
+				"name" => "AdmissionList View",
 				"group" => "Admission",
 			],
 			[
 				"slug" => "admission_active",
-				"name" => "Admission Status Active",
+				"name" => "AdmissionStatusActive Edit",
 				"group" => "Admission",
 			],
 
 			[
 				"slug" => "admission_inactive",
-				"name" => "Admission Status Inctive",
+				"name" => "AdmissionStatusInctive Edit",
 				"group" => "Admission",
 			],
 
@@ -1270,7 +1270,7 @@ class PermissionTableSeeder extends Seeder {
 			],
 			[
 				"slug" => "postadmission",
-				"name" => "Admission Store",
+				"name" => "Admission Create",
 				"group" => "Admission",
 			],
 
@@ -1281,17 +1281,17 @@ class PermissionTableSeeder extends Seeder {
 			//get academic info
 			[
 				"slug" => "get-subject",
-				"name" => "Get Subject List",
+				"name" => "GetSubjectListAjax View",
 				"group" => "AcademicInfo",
 			],
 			[
 				"slug" => "get-section",
-				"name" => "Get Section List",
+				"name" => "GetSectionListAjax View",
 				"group" => "AcademicInfo",
 			],
 			[
 				"slug" => "get-exam",
-				"name" => "Get Exam List",
+				"name" => "GetExamListAjax View",
 				"group" => "AcademicInfo",
 			],
 
@@ -1302,105 +1302,100 @@ class PermissionTableSeeder extends Seeder {
 			// Fees
 			[
 				"slug" => "student.fee.setup",
-				"name" => "Student Fees Setup",
+				"name" => "StudentFeesSetup View",
 				"group" => "Fees",
 			],
 			[
 				"slug" => "student.fee.setuppost",
-				"name" => "Student Fees Setup Set",
+				"name" => "StudentFeesSetup Create",
 				"group" => "Fees",
 			],
 			[
 				"slug" => "student.fee.setuplist",
-				"name" => "Student Fees Setup List",
+				"name" => "StudentFeesSetupList View",
 				"group" => "Fees",
 			],
 			[
 				"slug" => "student.feessetup_edit",
-				"name" => "Student Fees Setup edit",
+				"name" => "StudentFeesSetup Edit",
 				"group" => "Fees",
 			],
 			[
 				"slug" => "student.feessetup_update",
-				"name" => "Student Fees Setup Update",
+				"name" => "StudentFeesSetup Edit",
 				"group" => "Fees",
 			],
 			[
 				"slug" => "student.feessetup_destroy",
-				"name" => "Student Fees Setup Delete",
+				"name" => "StudentFeesSetup Delete",
 				"group" => "Fees",
 			],
 
 			[
 				"slug" => "student.fee.collection",
-				"name" => "Student FeeCollection",
+				"name" => "StudentFeeCollection View",
 				"group" => "Fees",
 			],
 
 			[
 				"slug" => "student.fee.getListjson",
-				"name" => "Student FeeCollection List",
+				"name" => "StudentFeeCollectionList View",
 				"group" => "Fees",
 			],
 
 			[
 				"slug" => "student.fee.getFeeInfo",
-				"name" => "Student FeeCollection Info",
+				"name" => "StudentFeeCollectionInfo View",
 				"group" => "Fees",
 			],
 
 			[
 				"slug" => "student.fee.getDue",
-				"name" => "Student Due FeeCollection Info",
+				"name" => "StudentDueFeeCollectionInfo View",
 				"group" => "Fees",
 			],
 			[
 				"slug" => "student.fee.print",
-				"name" => "Student Fee Print",
+				"name" => "StudentFeePrint View",
 				"group" => "Fees",
 			],
 
-			[
-				"slug" => "student.fee.print",
-				"name" => "Student Fee Print",
-				"group" => "Fees",
-			],
 
 			[
 				"slug" => "student.fee.postcollection",
-				"name" => "Student Fee Post",
+				"name" => "StudentFeePost View",
 				"group" => "Fees",
 			],
 
 			[
 				"slug" => "student.fee.views",
-				"name" => "Student Fee View",
+				"name" => "StudentFee View",
 				"group" => "Fees",
 			],
 			[
 				"slug" => "student.fee.report",
-				"name" => "Student Fee Report",
+				"name" => "StudentFeeReport View",
 				"group" => "Fees",
 			],
 			[
 				"slug" => "student.fee.getreport",
-				"name" => "Student Fee Get Report",
+				"name" => "StudentGetFeeReport View",
 				"group" => "Fees",
 			],
 			[
 				"slug" => "student.fee.datereport",
-				"name" => "Student Fee Date Report",
+				"name" => "StudentFeeDateReport View",
 				"group" => "Fees",
 			],
 			[
 				"slug" => "student.fee.datereport",
-				"name" => "Student Fee Date Report",
+				"name" => "StudentFeeDateReport View",
 				"group" => "Fees",
 			],
 
 			[
 				"slug" => "student.fees.details",
-				"name" => "Student Fee Details",
+				"name" => "StudentFeeDetails View",
 				"group" => "Fees",
 			],
 
