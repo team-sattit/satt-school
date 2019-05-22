@@ -1036,10 +1036,273 @@ class PermissionTableSeeder extends Seeder
                 "slug" => "report.student_list",
                 "name" => "Student List View",
                 "group" => "Report"
-            ]
+            ],
+             [
+                "slug" => "report.student_monthly_attendance_details",
+                "name" => "Student Monthly Attandance Details",
+                "group" => "Report"
+            ],
+               [
+                "slug" => "report.employee_monthly_attendance",
+                "name" => "Employee Monthly Attandance ",
+                "group" => "Report"
+            ],
+               [
+                "slug" => "report.employee_list",
+                "name" => "Employee List",
+                "group" => "Report"
+            ],
+               [
+                "slug" => "report.employee_monthly_attendance_details",
+                "name" => "Employee Monthly Attandance Details",
+                "group" => "Report"
+            ],
+          
             // Report
         ];
 
+        $libraryPermissionList = [
+            // Library
+            [
+                "slug" => "library.search",
+                "name" => "Library Search",
+                "group" => "Library"
+            ],
+            [
+                "slug" => "library.search1",
+                "name" => "Library Search Result1",
+                "group" => "Library"
+            ],
+             [
+                "slug" => "library.search2",
+                "name" => "Library Search Result2",
+                "group" => "Library"
+            ],
+               [
+                "slug" => "library.issuebookview",
+                "name" => "Library Book Issue ",
+                "group" => "Library"
+            ],
+               [
+                "slug" => "library.postissuebookview",
+                "name" => "Library Book View",
+                "group" => "Library"
+            ],
+               [
+                "slug" => "library.issuebookupdate",
+                "name" => "Library Book Issue Edit",
+                "group" => "Library"
+            ],
+
+                [
+                "slug" => "library.postissueBookupdate",
+                "name" => "Library Book Issue Update",
+                "group" => "Library"
+            ],
+                [
+                "slug" => "library.issuebookdelete",
+                "name" => "Library Book Delete",
+                "group" => "Library"
+            ],
+                [
+                "slug" => "library.issuebook",
+                "name" => "Library Book Issue List",
+                "group" => "Library"
+            ],
+                [
+                "slug" => "library.issuebook-availabe",
+                "name" => "Library Check Issue Book ",
+                "group" => "Library"
+            ],
+
+                  [
+                "slug" => "library.postissuebook",
+                "name" => "Library Check Issue Book List ",
+                "group" => "Library"
+            ],
+                [
+                "slug" => "library.getview-show",
+                "name" => "Library Book View ",
+                "group" => "Library"
+            ],
+                [
+                "slug" => "library.postview-show",
+                "name" => "Library Book View Result ",
+                "group" => "Library"
+            ],
+              [
+                "slug" => "library.getaddbook",
+                "name" => "Library Book Entry ",
+                "group" => "Library"
+            ],
+                [
+                "slug" => "library.postaddbook",
+                "name" => "Library Book Entry Result ",
+                "group" => "Library"
+            ],
+                [
+                "slug" => "library.edit",
+                "name" => "Library Book Edit ",
+                "group" => "Library"
+            ],
+                [
+                "slug" => "library.update",
+                "name" => "Library Book Update ",
+                "group" => "Library"
+            ],  
+              [
+                "slug" => "library.delete",
+                "name" => "Library Book Delete ",
+                "group" => "Library"
+            ],
+                [
+                "slug" => "library.reports",
+                "name" => "Library Report ",
+                "group" => "Library"
+            ],
+                [
+                "slug" => "library.reports.fine",
+                "name" => "Library Fine Report ",
+                "group" => "Library"
+            ],
+                [
+                "slug" => "library.reportprint",
+                "name" => "Library Report Print",
+                "group" => "Library"
+            ],
+                [
+                "slug" => "library.reports.monthlyfine",
+                "name" => "Library Monthly Fine Report ",
+                "group" => "Library"
+            ],
+          
+            // Library
+        ];
+
+           $gradesheetPermissionList = [
+           //Gradesheet
+             [
+                "slug" => "gradesheet",
+                "name" => "Gradesheet",
+                "group" => "Gradesheet"
+            ],
+               [
+                "slug" => "postgradesheet",
+                "name" => "Post Gradesheet",
+                "group" => "Gradesheet"
+            ],
+               [
+                "slug" => "gradesheet.print",
+                "name" => "Gradesheet",
+                "group" => "Gradesheet Print"
+            ],
+           //Gradesheet
+           ];
+
+        $tabulationPermissionList = [
+           //TabulationSheet
+             [
+                "slug" => "tabulation",
+                "name" => "Tabulation",
+                "group" => "TabulationSheet"
+            ],
+               [
+                "slug" => "posttabulation",
+                "name" => "Post Tabulation",
+                "group" => "TabulationSheet"
+            ],
+          
+           //TabulationSheet
+           ];
+
+         $resultsummaryPermissionList = [
+           //ResultSummary
+             [
+                "slug" => "passing_summary",
+                "name" => "Passing Summary",
+                "group" => "ResultSummary"
+            ],
+               [
+                "slug" => "passing_postsummary",
+                "name" => "Passing Summary List",
+                "group" => "ResultSummary"
+            ],
+                 [
+                "slug" => "subjectpass_summary",
+                "name" => "Subject Wise pass Summary",
+                "group" => "ResultSummary"
+            ],
+          
+               [
+                "slug" => "subjectpass_postsummary",
+                "name" => "Subject Wise pass Summary List",
+                "group" => "ResultSummary"
+            ],
+          
+          
+           //ResultSummary
+           ];
+
+
+         $admissionPermissionList = [
+           //Admission
+             [
+                "slug" => "admission_name",
+                "name" => "Admission Name",
+                "group" => "Admission"
+            ],
+               [
+                "slug" => "admission_list",
+                "name" => "Admission  List",
+                "group" => "Admission"
+            ],
+                 [
+                "slug" => "admission_active",
+                "name" => "Admission Status Active",
+                "group" => "Admission"
+            ],
+          
+               [
+                "slug" => "admission_inactive",
+                "name" => "Admission Status Inctive",
+                "group" => "Admission"
+            ],
+
+                [
+                "slug" => "admission.create",
+                "name" => "Admission Create",
+                "group" => "Admission"
+            ],
+                [
+                "slug" => "postadmission",
+                "name" => "Admission Store",
+                "group" => "Admission"
+            ],
+          
+          
+           //Admission
+           ];
+
+              $academicinfoPermissionList = [
+           //get academic info
+             [
+                "slug" => "get-subject",
+                "name" => "Get Subject List",
+                "group" => "AcademicInfo"
+            ],
+               [
+                "slug" => "get-section",
+                "name" => "Get Section List",
+                "group" => "AcademicInfo"
+            ],
+                 [
+                "slug" => "get-exam",
+                "name" => "Get Exam List",
+                "group" => "AcademicInfo"
+            ],
+          
+           //get academic info
+           ];
 
           $feesPermissionList = [
             // Fees
@@ -1079,12 +1342,80 @@ class PermissionTableSeeder extends Seeder
                 "name" => "Student FeeCollection",
                 "group" => "Fees"
             ],
+
+          [
+                "slug" => "student.fee.getListjson",
+                "name" => "Student FeeCollection List",
+                "group" => "Fees"
+            ],
+
+             [
+                "slug" => "student.fee.getFeeInfo",
+                "name" => "Student FeeCollection Info",
+                "group" => "Fees"
+            ],
+
+               [
+                "slug" => "student.fee.getDue",
+                "name" => "Student Due FeeCollection Info",
+                "group" => "Fees"
+            ],
+             [
+                "slug" => "student.fee.print",
+                "name" => "Student Fee Print",
+                "group" => "Fees"
+            ],
+
+            [
+                "slug" => "student.fee.print",
+                "name" => "Student Fee Print",
+                "group" => "Fees"
+            ],
+
+            [
+                "slug" => "student.fee.postcollection",
+                "name" => "Student Fee Post",
+                "group" => "Fees"
+            ],
+
+            [
+                "slug" => "student.fee.views",
+                "name" => "Student Fee View",
+                "group" => "Fees"
+            ],
+              [
+                "slug" => "student.fee.report",
+                "name" => "Student Fee Report",
+                "group" => "Fees"
+            ],
+              [
+                "slug" => "student.fee.getreport",
+                "name" => "Student Fee Get Report",
+                "group" => "Fees"
+            ],
+            [
+                "slug" => "student.fee.datereport",
+                "name" => "Student Fee Date Report",
+                "group" => "Fees"
+            ],
+            [
+                "slug" => "student.fee.datereport",
+                "name" => "Student Fee Date Report",
+                "group" => "Fees"
+            ],
+
+               [
+                "slug" => "student.fees.details",
+                "name" => "Student Fee Details",
+                "group" => "Fees"
+            ],
+
             // Fees
         ];
 
         //merge all permissions and insert into db
         $permissions = array_merge($commonPermissionList, $administratorPermissionList, $onlyAdminPermissions,
-            $academicPermissionList, $websitePermissionList, $hrmPermissionList, $examPermissionList, $reportsPermissionList,$feesPermissionList);
+            $academicPermissionList, $websitePermissionList, $hrmPermissionList, $examPermissionList, $reportsPermissionList,$feesPermissionList,$libraryPermissionList,$gradesheetPermissionList,$tabulationPermissionList,$resultsummaryPermissionList,$admissionPermissionList,$academicinfoPermissionList,);
 
         echo PHP_EOL , 'seeding permissions...';
 

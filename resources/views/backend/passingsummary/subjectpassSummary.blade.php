@@ -3,7 +3,7 @@
 @extends('backend.layouts.master')
 
 <!-- Page title -->
-@section('pageTitle') Passing Summary @endsection
+@section('pageTitle') overall Passing Summary @endsection
 @section('extraStyle')
  <link href="{{asset('css/toastr.min.css')}}" rel="stylesheet">
  @endsection

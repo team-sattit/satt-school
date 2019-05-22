@@ -153,13 +153,13 @@ class DemoAppDataSeeder extends Seeder
         $data['favicon'] = $fileName;
 
 
-        $data['name'] = 'CloudSchool BD';
+        $data['name'] = 'SattSchool BD';
         $data['short_name'] = 'CSBD';
         $data['establish'] = '2010';
-        $data['website_link'] = 'http://cloudschoolbd.com';
-        $data['email'] = 'info@cloudschoolbd.com';
-        $data['phone_no'] = '+8801554322707';
-        $data['address'] = 'Dhanmondi,Dhaka-1207';
+        $data['website_link'] = 'http://Sattschool.com';
+        $data['email'] = 'info@Sattschool.com';
+        $data['phone_no'] = '+8801740390336';
+        $data['address'] = 'Talaimari,Rajshahi-6000';
 
         $created_by = 1;
         $created_at = Carbon::now(env('APP_TIMEZONE','Asia/Dhaka'));

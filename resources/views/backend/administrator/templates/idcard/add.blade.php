@@ -29,7 +29,7 @@
                 <div class="box box-info">
                     <div class="box-header">
                         <div class="callout callout-danger">
-                            <p><b>Note:</b> Fist select format. Then if you need to change color then pick it. And add logo and signature before add the template. </p>
+                            <p><b>Note:</b> First select format. Then if you need to change color then pick it. And add logo and signature before add the template. </p>
                         </div>
                     </div>
                     <form novalidate id="templateForm" action="@if($template) {{URL::Route('administrator.template.idcard.update', $template->id)}} @else {{URL::Route('administrator.template.idcard.store')}} @endif" method="post" enctype="multipart/form-data">

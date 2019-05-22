@@ -137,8 +137,8 @@ class DemoSiteDataSeeder extends Seeder
         copy($originFilePath.$fileName, $destinationPath.$fileName);
         $data['favicon'] = $fileName;
 
-        $data['name'] = 'Cloud School';
-        $data['short_name'] = 'CloudSchool';
+        $data['name'] = 'Satt School';
+        $data['short_name'] = 'SattSchool';
         $data['facebook'] = '#';
         $data['google'] = '#';
         $data['twitter'] = '#';
@@ -197,15 +197,15 @@ class DemoSiteDataSeeder extends Seeder
         //now crate or update model
         SiteMeta::updateOrCreate(
             ['meta_key' => 'contact_address'],
-            [ 'meta_value' => 'Dhaka-1207']
+            [ 'meta_value' => 'Rajshahi-6000']
         );
         SiteMeta::updateOrCreate(
             ['meta_key' => 'contact_phone'],
-            [ 'meta_value' => '+880258685']
+            [ 'meta_value' => '+8800155258742']
         );
         SiteMeta::updateOrCreate(
             ['meta_key' => 'contact_email'],
-            [ 'meta_value' => 'contact@cloudschoolbd.com']
+            [ 'meta_value' => 'contact@sattschoolbd.com']
         );
         SiteMeta::updateOrCreate(
             ['meta_key' => 'contact_latlong'],
@@ -253,8 +253,8 @@ class DemoSiteDataSeeder extends Seeder
     private function testimonialData()
     {
         $data = [
-            'writer' => 'Shadhin',
-            'comments' => 'Awesome Academy',
+            'writer' => 'Tariqul',
+            'comments' => 'Satt Academy',
             'avatar'    => null,
             'order'     => 1,
         ];
@@ -262,8 +262,8 @@ class DemoSiteDataSeeder extends Seeder
         Testimonial::create($data);
 
         $data = [
-            'writer' => 'HRS',
-            'comments' => 'Great school',
+            'writer' => 'Emran',
+            'comments' => 'Satt school',
             'avatar'    => null,
             'order'     => 2,
         ];
@@ -431,7 +431,7 @@ class DemoSiteDataSeeder extends Seeder
         }
 
         $data = [
-            'name' => 'Fakir Chand',
+            'name' => 'Kanak Devnath',
             'image' => '',
             'designation' => 'Head Master',
             'qualification' => 'M.A in English',

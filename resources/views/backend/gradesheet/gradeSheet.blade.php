@@ -46,7 +46,7 @@
 
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="glyphicon glyphicon-home blue"></i></span>
-                                            {{ Form::select('class_id',$classes->pluck('name','id')->prepend('Select class Name',""),NULL,['class'=>'form-control select2','required'=>'true'])}}
+                                            {{ Form::select('class_id',$classes->pluck('name','id')->prepend('Select class Name',""),NULL,['class'=>'form-control select2 classes','required'=>'true'])}}
                                         </div>
                                     </div>
                                 </div>
@@ -54,7 +54,7 @@
                                     <div class="form-group">
                                         <label class="control-label" for="section">Section</label>
 
-                                        <div class="input-group">
+                                        <div class="input-group" id="section">
                                             <span class="input-group-addon"><i class="glyphicon glyphicon-info-sign blue"></i></span>
                             
                                             {{ Form::select('section',$section->pluck('name','id')->prepend('Select class Section',""),NULL,['class'=>'form-control select2','required'=>'true'])}}
@@ -78,7 +78,7 @@
                                     <div class="form-group">
                                         <label class="control-label" for="exam">Examination</label>
 
-                                        <div class="input-group">
+                                        <div class="input-group" id="exam">
                                             <span class="input-group-addon"><i class="glyphicon glyphicon-info-sign blue"></i></span>
                                         
                                             {{ Form::select('exam_id',$exam->pluck('name','id')->prepend('Select Exam Name',""),NULL,['class'=>'form-control select2','required'=>'true'])}}
@@ -174,6 +174,50 @@
             unhighlight: function (element, errorClass, validClass) {
                 $(element).parents(".form-group>div").addClass("has-success").removeClass("has-error");
             }
+        });
+    </script>
+        <script>
+        $(".classes").change(function(){
+         var classes =$(this).val();
+
+              $.ajax({
+
+              type: 'GET',
+              url: "{{ route('get-subject') }}",
+              data : {classes:classes},
+              dateType: 'text',
+              success: function(data){
+                $("#subject").html(data)
+                $("#subject").find('select').select2();
+               }
+              
+            });
+
+           $.ajax({
+
+              type: 'GET',
+              url: "{{ route('get-section') }}",
+              data : {classes:classes},
+              dateType: 'text',
+              success: function(data){
+                $("#section").html(data)
+                $("#section").find('select').select2();
+               }
+              
+            });   
+
+              $.ajax({
+
+              type: 'GET',
+              url: "{{ route('get-exam') }}",
+              data : {classes:classes},
+              dateType: 'text',
+              success: function(data){
+                $("#exam").html(data)
+                $("#exam").find('select').select2();
+               }
+              
+            }); 
         });
     </script>
 @endsection
