@@ -26,13 +26,23 @@ class ResultSummaryController extends Controller
     public function passing_summary()
     {
         $result=array();
-        $classes = IClass::all();
-        $section =Section::all();
-        $academic_year =AcademicYear::all();
-        $exam =Exam::all();
+        $class_id=null;
+        $sections = Section::where('status', AppHelper::ACTIVE)
+                ->where('class_id', $class_id)
+                ->get();
 
+            $subjects = Subject::where('status', AppHelper::ACTIVE)
+                 ->where('class_id', $class_id)
+                ->get();
 
-        return View::Make('backend.passingsummary.classpassSummary',compact('classes','result','section','academic_year','exam'));
+            $exams = Exam::where('status', AppHelper::ACTIVE)
+                ->where('class_id', $class_id)
+                ->get();
+
+            $academic_years = AcademicYear::where('status', '1')->orderBy('id', 'desc')->get();
+            $classes = IClass::all();
+
+        return View::Make('backend.passingsummary.classpassSummary',compact('classes','result','sections','academic_years','exams'));
     }
 
       public function passing_postsummary()
@@ -53,13 +63,13 @@ class ResultSummaryController extends Controller
         }
         
         $classes = IClass::all();
-        $section =Section::all();
-        $academic_year =AcademicYear::all();
-        $exam =Exam::all();
-        if ($exam) {
+        $sections =Section::all();
+        $academic_years =AcademicYear::all();
+        $exams =Exam::all();
+        if ($exams) {
            Input::get('academic_year_id');
               $result =Result::with(['student','student.student','exam','class','academicyear','class'])->where('academic_year_id',Input::get('academic_year_id'))->where('class_id',Input::get('class_id'))->where('exam_id',Input::get('exam_id'))->where('grade','!=','F')->orderBy('total_marks','desc')->get();              
-                return View::Make('backend.passingsummary.classpassSummary', compact('result','classes','section','academic_year','exam'));
+                return View::Make('backend.passingsummary.classpassSummary', compact('result','classes','sections','academic_years','exams'));
             }
 
             else

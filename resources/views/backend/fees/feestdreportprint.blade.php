@@ -83,28 +83,17 @@ left:0;
 
 <body >
 <div id="admit">
-  <div style="max-width: 30%;margin: auto;">
-     <img  src="@if(isset($appSettings['institute_settings']['logo'])) {{asset('storage/logo/'.$appSettings['institute_settings']['logo'])}} @else {{ asset('images/logo-md.png') }} @endif" alt="logo-md">
-  </div>
-  <table class="bg">
-    <tr>
-    <td class="lefthead">
-
-  
-    </td>
-
-   <td class="righthead">
-<h3>{{$appSettings['institute_settings']['name']}}</h3><pre>
-<p><strong>Establish:</strong> {{$appSettings['institute_settings']['establish']}}</p>
-<p><strong>Web:</strong> {{$appSettings['institute_settings']['website_link']}}</p>
-<p><strong>Email:</strong> {{$appSettings['institute_settings']['email']}}</p>
-<p><strong>Phone:</strong> {{$appSettings['institute_settings']['phone_no']}}</p>
-<p><strong>Address:</strong> {{$appSettings['institute_settings']['address']}}</p>
-     </pre>
-   </td>
-   </tr>
-
- </table>
+     <div style="text-align: center;" >
+       <img  src="@if(isset($appSettings['institute_settings']['logo'])) {{asset('storage/logo/'.$appSettings['institute_settings']['logo'])}} @else {{ asset('images/logo-md.png') }} @endif" alt="logo-md" class="img-responsive center-block">
+     <b> <p style="text-align: center;">{{$appSettings['institute_settings']['name']}}</p></b>
+     <span>
+         <strong>Establish:</strong> {{$appSettings['institute_settings']['establish']}}
+         <strong>Web:</strong> <a href="{{$appSettings['institute_settings']['website_link']}}" target="_blank">{{$appSettings['institute_settings']['website_link']}}</a> <br>
+         <strong>Email:</strong> {{$appSettings['institute_settings']['email']}}
+         <strong>Phone:</strong> {{$appSettings['institute_settings']['phone_no']}} <br>
+         <strong>Address:</strong> {{$appSettings['institute_settings']['address']}}
+     </span>
+       </div>
  <table class="bg2">
    <tr><td>
 

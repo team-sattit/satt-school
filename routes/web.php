@@ -369,7 +369,7 @@ Route::group(
 		Route::get('/fees/report/std/{regiNo}', 'FessController@reportstd')->name('student.fee.getreport');
 		Route::get('/fees/report/{sDate}/{eDate}', 'FessController@reportprint')->name('student.fee.datereport');
 		Route::get('/fees/details/{billNo}', 'FessController@billDetails')->name('student.fees.details');
-
+ 
 		Route::any('report/student-monthly-attendance-details', 'ReportController@studentMonthlyAttendanceDetails')
 			->name('report.student_monthly_attendance_details');
 

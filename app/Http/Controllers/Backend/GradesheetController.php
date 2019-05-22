@@ -29,9 +29,16 @@ class GradesheetController extends Controller
     {
         $result=array();
         $classes = IClass::all();
-        $section =Section::all();
-        $academic_year =AcademicYear::all();
-        $exam =Exam::all();
+        $class_id=null;
+        $section = Section::where('status', AppHelper::ACTIVE)
+                ->where('class_id', $class_id)
+                ->get();
+
+         $exam = Exam::where('status', AppHelper::ACTIVE)
+                ->where('class_id', $class_id)
+                ->get();
+
+        $academic_year = AcademicYear::where('status', '1')->orderBy('id', 'desc')->get();
 
 
         return View::Make('backend.gradesheet.gradeSheet',compact('classes','result','section','academic_year','exam'));
