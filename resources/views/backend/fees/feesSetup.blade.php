@@ -63,9 +63,11 @@
                                             <div class="input-group">
                                                 <span class="input-group-addon"><i class="glyphicon glyphicon-home blue"></i></span>
                                                 <select name="type" class="form-control select2" required="required" >
-                                                    <option value="">Select Class</option>
-                                                <option value="Other">Other</option>
+                                                <option value="">Select Class</option>
+                                                <option value="Admission">Admission</option>
                                                   <option value="Monthly">Monthly</option>
+                                                <option value="Other">Other</option>
+                                                
 
                                                 </select>
                                             <span class="text-danger">{{ $errors->first('type') }}</span>

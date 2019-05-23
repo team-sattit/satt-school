@@ -10,6 +10,9 @@ use App\Section;
 use App\Student;
 use App\Subject;
 use App\Template;
+use App\FeeCollection;
+use App\FeeSetup;
+use App\StudentFees;
 use App\User;
 use App\UserRole;
 use Carbon\Carbon;
@@ -115,7 +118,7 @@ class StudentController extends Controller
         $electiveSubjects = [];
         $coreSubjects = [];
         $academic_years = [];
-
+    
         // check for institute type and set gender default value
         $settings = AppHelper::getAppSettings();
         if(isset($settings['institute_type']) && intval($settings['institute_type']) == 2){
@@ -292,11 +295,29 @@ class StudentController extends Controller
                 'board_regi_no' => $data['board_regi_no'],
                 'fourth_subject' => $data['fourth_subject'] ??  0,
                 'alt_fourth_subject' => $data['alt_fourth_subject'] ??  0,
-                'house' => $data['house'] ??  ''
+                'house' => $data['house'] ??  '',
+                'fee_total' => $data['fee_total'] 
+
             ];
 
             Registration::create($registrationData);
 
+           if (isset($request->type)) {
+               for ($i=0; $i <count($request->type) ; $i++) { 
+                $studentfee =new StudentFees();
+                $studentfee->class_id =$request->class_id;
+                $studentfee->regi_num =$regiNo;
+                $studentfee->feeid =$request->feeid[$i];
+                $studentfee->origin_fee =$request->origin_fee[$i];
+                $studentfee->type =$request->type[$i];
+                $studentfee->title =$request->title[$i];
+                $studentfee->fee =$request->fee[$i];
+                $studentfee->Latefee =$request->Latefee[$i];
+                $studentfee->save();
+
+
+            }
+           }
             // now commit the database
             DB::commit();
             $request->session()->flash('message', "Student registration number is ".$regiNo);
@@ -426,7 +447,8 @@ class StudentController extends Controller
             $user = User::find($student->student->user_id);
             $username = $user->username;
         }
-        return view('backend.student.view', compact('student', 'username', 'fourthSubject', 'altfourthSubject'));
+       $fees =FeeCollection::where('regi_no',$student->regi_no)->get();
+        return view('backend.student.view', compact('student', 'username', 'fourthSubject', 'altfourthSubject','fees'));
 
 
     }
@@ -892,5 +914,12 @@ class StudentController extends Controller
             ->where('shift', $shift)
             ->get();
             return $students;
+    }
+
+    public function get_studentfee(Request $request)
+    {
+        $class =$request->classes;
+        $feesetup =FeeSetup::where('class_id',$class)->get();
+        return view('backend.student.fees',compact('feesetup'));
     }
 }

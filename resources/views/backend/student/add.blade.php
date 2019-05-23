@@ -363,6 +363,18 @@
 
                                 </div>
 
+                                <p class="lead section-title">Fee Info:</p>
+                                <div class="row">
+                                    @if(!$student)
+                                   <div class="col-md-12">
+                                       <div id="feesetup">
+                                           
+                                       </div>
+                                   </div>
+                                    @endif
+                    
+                            </div>
+
                                 <p class="lead section-title">Access Info:</p>
                                 <div class="row">
                                     @if(!$student)
@@ -424,5 +436,40 @@
 
         });
     </script>
+  @if(!$student)
+    <script>
+         $("#student_add_edit_class_change").change(function(){
+         var classes =$(this).val();
+
+              $.ajax({
+
+              type: 'GET',
+              url: "{{ route('get-studentfee') }}",
+              data : {classes:classes},
+              dateType: 'html',
+              success: function(data){
+                $("#feesetup").html(data);
+               }
+              
+            });
+          });
+
+$(document).on('keyup','.fee',function(){
+    var total =0;
+    $(".fee").each(function(){
+        var amt = parseInt($(this).val());
+    if (isNaN(amt)) {
+        amt = 0;
+    }
+    total =total + amt;
+
+  })
+    $(".total").val(total);
+     
+    
+})
+     
+    </script>
+    @endif
 @endsection
 <!-- END PAGE JS-->

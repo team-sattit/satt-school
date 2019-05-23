@@ -123,7 +123,7 @@ class AdmissionController extends Controller
         	$admission->close=Input::get('close');
         	$admission->save();
         	Toastr::success('Admission Craete Successfully:','Success');
-        	return Redirect::to('/admission');
+        	return Redirect::to('exam/admission');
 
         }
     }

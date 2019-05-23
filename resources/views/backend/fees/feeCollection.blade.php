@@ -121,7 +121,7 @@
 
                           <div class="input-group">
                               <span class="input-group-addon"><i class="glyphicon glyphicon-book blue"></i></span>
-                              <select id="student" name="regi_no" class="form-control select2" required="true">
+                              <select id="student" name="regi_no"  class="form-control select2" required="true">
                                   <option value="">--Select Student--</option>
                               </select>
                           </div>
@@ -134,7 +134,7 @@
                                   <div class="input-group">
 
                                       <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i> </span>
-                                      <input type="text"   class="form-control datepicker" name="date" required readonly >
+                                      <input type="text"   class="form-control datepicker" name="date" value="{{date('Y-m-d')}}" required readonly >
                                   </div>
 
 
@@ -142,6 +142,22 @@
                           </div>
 
                           </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12">
+                        <div class="col-md-4">
+                              <div class="form-group ">
+                                  <label for="dob">Collection Due</label>
+                                  <div class="input-group">
+
+                                      <span class="input-group-addon"><i class="glyphicon glyphicon-plus"></i> </span>
+                                      <input type="text"   class="form-control c_due " name=""  readonly >
+                                  </div>
+
+
+                              </div>
+                        </div>
+                      </div>
                       </div>
                       <hr class="hrclass">
                       <div class="row">
@@ -154,8 +170,9 @@
                                              <span class="input-group-addon"><i class="glyphicon glyphicon-info-sign blue"></i></span>
                                              <select id="type" name="type" class="form-control select2" required>
                                                 <option>--Select Fee Type--</option>
-                                             <option value="Other">Other</option>
+                                                <option value="Admission">Admission</option>
                                                <option value="Monthly">Monthly</option>
+                                             <option value="Other">Other</option>
 
                                              </select>
                                          </div>
@@ -464,9 +481,10 @@
                             $('#feeInfoDiv').hide();
                         }
                         var id = $('#fee').val();
+                        var stdid =$("#student").val();
 
                         $.ajax({
-                            url: '/fee/getFeeInfo/'+id,
+                            url: '/fee/getFeeInfo/'+id+'/'+stdid,
                             data: {
                                 format: 'json'
                             },
@@ -618,6 +636,7 @@
 
                     var gtotal = parseFloat($('#previousdue').val())+parseFloat($('#ctotal').val());
                     $('#gtotal').val(gtotal);
+                    $('#paidamount').val(gtotal);
 
                 }
                 catch (e) {
@@ -646,6 +665,24 @@
              });
           });
 
+    </script>
+
+    <script>
+       $("#student").change(function(){
+         var student =$(this).val();
+
+              $.ajax({
+
+              type: 'GET',
+              url: "{{ route('get-studentduefee') }}",
+              data : {student:student},
+              dateType: 'json',
+              success: function(data){
+                $(".c_due").val(data);
+               }
+              
+            });
+          });
     </script>
 @endsection
 <!-- END PAGE JS-->

@@ -12,9 +12,12 @@ use App\AboutSlider;
 use App\TeacherProfile;
 use App\Testimonial;
 use App\Admission;
+use App\AdmissionForm;
+
 use Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Brian2694\Toastr\Facades\Toastr;
 
 
 
@@ -247,6 +250,83 @@ class HomeController extends Controller
     public function admission_form($adid,$class_id)
     {
         $admis_one =Admission::find($adid);
-        return view('frontend.admission_form',compact('admis_one'));
+        return view('frontend.admission_form',compact('admis_one','adid','class_id'));
     }
+public function regonline_print($id)
+{
+    return $id;
+}
+   public function Postregonline()
+    {
+        $rules=['name' => 'required',
+        'nationality' => 'required',
+        'dob' => 'required',
+        'photo' => 'required|mimes:png,jpg,jpeg,bmp|max:204800',
+        'fatherName' => 'required',
+        'fatherCellNo' => 'required',
+        'motherName' => 'required',
+        'motherCellNo' => 'required',
+        'campus' => 'required',
+        'keeping' => 'required',
+    ];
+    $validator = \Validator::make(Input::all(), $rules);
+    if ($validator->fails())
+    {
+        return redirect()->back()->withInput(Input::all())->withErrors($validator);
+    }
+    else {
+        $current = strtotime(date('Y-m-d H:i:s'));
+        $check =Admission::find(Input::get('admission_id'));
+        if ($current > strtotime($check->open) && $current < strtotime($check->close))
+        {
+        $refNo=$this->getRefNo(AdmissionForm::count());
+        $seatNofinal=0;
+      
+
+        $addStd= new AdmissionForm();
+        $addStd->refNo=$refNo;
+        $addStd->seatNo=$seatNofinal;
+        $addStd->transactionNo="";
+        $addStd->stdName=Input::get('name');
+        $addStd->nationality=Input::get('nationality');
+        $addStd->class=Input::get('class_id');
+        $addStd->dob=Input::get('dob');
+        $addStd->session="";
+        $addStd->campus=Input::get('campus');
+        $addStd->keeping=Input::get('keeping');
+        $addStd->fatherName=Input::get('fatherName');
+        $addStd->fatherCellNo=Input::get('fatherCellNo');
+        $addStd->motherName=Input::get('motherName');
+        $addStd->motherCellNo=Input::get('motherCellNo');
+        $addStd->status="Application Submitted";
+
+        $image=$request->file('image');
+
+        $fileName=$refNo.'.'.Input::file('photo')->getClientOriginalExtension();
+        $addStd->photo=$fileName;
+        $addStd->save();
+        Input::file('photo')->move(base_path() .'/public/admission',$fileName);
+       return redirect()->route('site.regonline-print',$refNo);
+    }
+    else
+    {
+        Toastr::warning('Admission Date Expired:','Warnig');
+        return Redirect::to('/admission');
+    }
+
+    }
+
+}
+private function getRefNo($rowCount)
+{
+    $refNo=$rowCount+1;
+    if(strlen($refNo)==1)
+    {
+        $refNo = "00".$refNo;
+    }
+    elseif (strlen($refNo)==2) {
+        $refNo = "0".$refNo;
+    }
+    return $refNo;
+}
 }

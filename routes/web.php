@@ -355,9 +355,8 @@ Route::group(
 		Route::get('/fees/collection', 'FessController@getCollection')->name('student.fee.collection');
 
 		Route::get('/student/getList/{class}/{section}/{shift}/{session}', 'StudentController@getStudentList')->name('student.getlist');
-		//this route without permission..
 		Route::get('/fee/getListjson/{class}/{type}', 'FessController@getListjson')->name('student.fee.getListjson');
-		Route::get('/fee/getFeeInfo/{id}', 'FessController@getFeeInfo')->name('student.fee.getFeeInfo');
+		Route::get('/fee/getFeeInfo/{id}/{stdid}', 'FessController@getFeeInfo')->name('student.fee.getFeeInfo');
 		Route::get('/fee/getDue/{class}/{stdId}', 'FessController@getDue')->name('student.fee.getDue');
 		Route::get('/fees/collection/{id}', 'FessController@feeprint')->name('student.fee.print');
 		Route::post('/fees/collection', 'FessController@postCollection')->name('student.fee.postcollection');
@@ -369,7 +368,9 @@ Route::group(
 		Route::get('/fees/report/std/{regiNo}', 'FessController@reportstd')->name('student.fee.getreport');
 		Route::get('/fees/report/{sDate}/{eDate}', 'FessController@reportprint')->name('student.fee.datereport');
 		Route::get('/fees/details/{billNo}', 'FessController@billDetails')->name('student.fees.details');
- 
+		//no permission setup
+		Route::get('/get-studentduefee','FessController@get_studentduefee')->name('get-studentduefee');
+     //report....
 		Route::any('report/student-monthly-attendance-details', 'ReportController@studentMonthlyAttendanceDetails')
 			->name('report.student_monthly_attendance_details');
 
@@ -446,6 +447,10 @@ Route::group(
 		Route::get('/get-subject', 'ResultSummaryController@get_subject')->name('get-subject');
 		Route::get('/get-section', 'ResultSummaryController@get_section')->name('get-section');
 		Route::get('/get-exam', 'ResultSummaryController@get_exam')->name('get-exam');
+		Route::get('/get-studentfee','StudentController@get_studentfee')->name('get-studentfee');
+
+		//promotion
+		Route::get('/promotion','PromotionController@index')->name('promotion');
 	}
 );
 

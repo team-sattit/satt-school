@@ -17,7 +17,7 @@ class CreateAdmissionsTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('academic_year_id');
             $table->unsignedInteger('class_id');
-            $table->unsignedInteger('section_id');
+            $table->unsignedInteger('section_id')->nullable();
             $table->string('name');
             $table->string('open');
             $table->string('close');

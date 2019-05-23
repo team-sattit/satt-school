@@ -9,6 +9,8 @@ use App\Section;
 use App\AcademicYear;
 use App\FeeCollection;
 use App\FeeHistory;
+use App\StudentFees;
+use App\Registration;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\View;
 use Redirect;
@@ -115,16 +117,16 @@ class FessController extends Controller {
 		return $fees;
 	}
 
-	public function getFeeInfo($id)
+	public function getFeeInfo($id,$stdid)
 	{
-		$fee= FeeSetup::select('fee','Latefee')->where('id','=',$id)->get();
+		$fee= StudentFees::select('fee','Latefee')->where('regi_num','=',$stdid)->where('feeid',$id)->get();
 		return $fee;
 	}
 
 	public function getDue($class,$stdId)
 	{
 		$due = FeeCollection::select(DB::RAW('IFNULL(sum(payableAmount),0)- IFNULL(sum(paidAmount),0) as dueamount'))
-		->where('class',$class)
+		->where('class_id',$class)
 		->where('regi_no',$stdId)
 		->first();
 		return $due->dueamount;
@@ -321,5 +323,14 @@ class FessController extends Controller {
 		$feecolect =FeeCollection::where('billNo',$id)->first();
 		 $appSettings = AppHelper::getAppSettings();
 		return View::Make('backend.fees.feecollectprint',compact('feecolect','appSettings'));
+	}
+
+	public function get_studentduefee()
+	{
+    $collect =FeeCollection::where('regi_no',Input::get('student'))->get();
+    $total =$collect->sum('paidAmount');
+    $full =Registration::where('regi_no',Input::get('student'))->first();
+    $due =$full->fee_total-$total;
+    return $due;
 	}
 }

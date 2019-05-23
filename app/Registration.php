@@ -11,7 +11,7 @@ class Registration extends Model
     use SoftDeletes;
     use UserstampsTrait;
 
-protected $with=['student','info','class','section','acYear','attendance','attendanceSingleDay','result','marks'];
+protected $with=['student','info','class','section','acYear','attendance','attendanceSingleDay','result','marks','fees'];
     /**
      * The attributes that are mass assignable.
      *
@@ -56,6 +56,11 @@ protected $with=['student','info','class','section','acYear','attendance','atten
     public function acYear()
     {
         return $this->belongsTo('App\AcademicYear', 'academic_year_id');
+    }
+
+    public function fees()
+    {
+        return $this->hasMany('App\FeeCollection', 'regi_no');
     }
 
     public function attendance()
