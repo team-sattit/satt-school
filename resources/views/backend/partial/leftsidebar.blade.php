@@ -15,6 +15,11 @@
         </a>
       </li>
       @endcan
+       <li>
+        <a href="{{ URL::route('promotion') }}">
+          <i class="fa icon-student"></i> <span>Promotion</span>
+        </a>
+      </li>
       @can('teacher.index')
       <li>
         <a href="{{ URL::route('teacher.index') }}">

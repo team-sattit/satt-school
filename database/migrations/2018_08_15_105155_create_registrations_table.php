@@ -27,6 +27,8 @@ class CreateRegistrationsTable extends Migration
             $table->unsignedInteger('fourth_subject')->default(0);
             $table->unsignedInteger('alt_fourth_subject')->default(0);
             $table->string('house',100)->nullable();
+            $table->double('fee_total',10,2)->default(0);
+
             $table->enum('status', [0,1])->default(1);
             $table->timestamps();
             $table->softDeletes();

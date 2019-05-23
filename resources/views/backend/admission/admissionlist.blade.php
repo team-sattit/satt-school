@@ -115,7 +115,9 @@
                                         <tr>
                                             <td>{{$admissions->academicyear->title}}</td>
                                             <td>{{$admissions->class->name}}</td>
-                                            <td>{{$admissions->section->name}} </td>
+                                            <td>@if ($admissions->section)
+                                            {{$admissions->section->name}}
+                                            @endif </td>
                                             <td>{{$admissions->name}}</td>
                                             
                                             <td>{{$admissions->open}}</td>

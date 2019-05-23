@@ -154,7 +154,7 @@ class DemoAppDataSeeder extends Seeder
 
 
         $data['name'] = 'SattSchool BD';
-        $data['short_name'] = 'CSBD';
+        $data['short_name'] = 'SMDC';
         $data['establish'] = '2010';
         $data['website_link'] = 'http://Sattschool.com';
         $data['email'] = 'info@Sattschool.com';

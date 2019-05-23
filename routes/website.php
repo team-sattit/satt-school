@@ -27,8 +27,11 @@ Route::group(
     Route::post('/contact-us', 'HomeController@contactUs')->name('site.contact_us_form');
     Route::get('/faq', 'HomeController@faq')->name('site.faq_view');
     Route::get('/timeline', 'HomeController@timeline')->name('site.timeline_view');
+    Route::get('/regonline-print/{id}','HomeController@regonline_print')->name('site.regonline-print');
     Route::get('/admission', 'HomeController@admission')->name('site.admission');
     Route::get('/admission/{adid}/{class_id}', 'HomeController@admission_form')->name('site.admission-form');
+    Route::post('/postregonline', 'HomeController@Postregonline')->name('site.regonline');
+
 
 });
 

@@ -294,7 +294,9 @@
                                 @endif
 
                             </div>
-                            <div class="row">
+               
+
+                             <div class="row">
                                 <div class="col-md-3">
                                     <label for="">Username</label>
                                 </div>
@@ -311,6 +313,31 @@
                                         @else
                                             <span class="bg-warning badge">Inactive</span>
                                         @endif
+                                    </p>
+                                </div>
+                            </div>
+                            <br>
+                                <div class="row">
+                                <div class="col-md-2">
+                                    <label for="">Total Fees</label>
+                                </div>
+                                <div class="col-md-2">
+                                    <p for="">: {{number_format($student->fee_total,2)}}</p>
+                                </div>
+                                <div class="col-md-2">
+                                    <label for="">paid</label>
+                                </div>
+                                <div class="col-md-2">
+                                    <p for="">:
+                                   {{number_format($fees->sum('paidAmount'),2)}}
+                                    </p>
+                                </div>
+                                 <div class="col-md-2">
+                                    <label for="">Due</label>
+                                </div>
+                                <div class="col-md-2">
+                                    <p for="">:
+                                   {{number_format($student->fee_total-$fees->sum('paidAmount'),2)}}
                                     </p>
                                 </div>
                             </div>
@@ -333,13 +360,82 @@
                             </table>
                         </div>
                         <div class="tab-pane" id="mark">
-
+      
                         </div>
                         <div class="tab-pane" id="invoice">
+                              <table id="invoiceTable" class="table table-responsive table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">Details</th>
+                                        <th class="text-center">Fee</th>
+                                        <th class="text-center">Late fee</th>
+                                        <th class="text-center">Total</th>
+
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    @php
+                                        $total=0;
+                                    @endphp
+                                    @forelse ($fees as $fee)
+                                    <tr>
+                                        <td colspan="5">
+                                            Bill No: {{$fee->billNo}}
+                                        </td>
+                                    </tr>
+                                    @forelse($fee->feehistory as $his)
+                                       <tr>
+                                           <td class="text-center">{{$his->title}} fee <br>{{AppHelper::getmonth($his->month)}}</td>
+                                           <td class="text-center">{{$his->fee}}</td>
+                                           <td class="text-center">{{$his->letfee}}</td>
+                                           <td class="text-center">{{$his->total}}</td>
+                                           @php
+                                               $total +=$his->total;
+                                           @endphp
+                                       </tr>
+                                       @empty
+                                       @endforelse
+                                    @empty
+                                       <tr>
+                                           <td colspan="5">No data found</td>
+                                       </tr>
+                                    @endforelse
+                                </tbody>
+                              <tfoot>
+                                  <tr>
+                                      <td colspan="3" class="text-right">Total</td>
+                                      <td>{{$total}}</td>
+                                  </tr>
+                              </tfoot>
+                            </table>
 
                         </div>
                         <div class="tab-pane" id="payment">
-
+                         
+                             <table id="paymentTable" class="table table-responsive table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">Date</th>
+                                        <th class="text-center">Bill No</th>
+                                        <th class="text-center">Payable amt</th>
+                                        <th class="text-center">Paid amt</th>
+                                        <th class="text-center">Due amt</th>
+                                    </tr>
+                                    </thead>
+                                <tbody>
+                                  @foreach ($fees as $collect)
+                                   <tr>
+                                       <td class="text-center">{{$collect->payDate}}</td>
+                                       <td class="text-center">{{$collect->billNo}}</td>
+                                       <td class="text-center">{{$collect->payableAmount}}</td>
+                                       <td class="text-center">{{$collect->paidAmount}}</td>
+                                       <td class="text-center">{{$collect->dueAmount}}</td>
+                                   </tr>
+                                   @endforeach 
+                                </tbody>
+                                
+                            </table>
                         </div>
                         {{--<div class="tab-pane" id="document">--}}
                             {{--<input class="btn btn-success btn-sm" style="margin-bottom: 10px" type="button" value="Add Document" data-toggle="modal" data-target="#documentupload">--}}

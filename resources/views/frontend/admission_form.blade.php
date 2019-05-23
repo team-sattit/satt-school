@@ -53,6 +53,10 @@ span {
 	width: 16%;
 	display:inline-block;
 }
+.col-md-3{
+	width: 24%;
+	display:inline-block;
+}
 </style>
 @endsection
 
@@ -101,22 +105,20 @@ $current = strtotime(date('Y-m-d H:i:s'));
 		</div>
 @if ($current > strtotime($start) && $current < strtotime($end))
 
-	<div class="widget-contact-form">
-							<!-- contact-form -->
-							<div class="info-boxes error-message alert-boxes error-alert" id="feedback-form-errors">
-								<strong>Attention!</strong>
-								<div class="message"></div>
-							</div>
-							<div class="email_server_responce"></div>
-							<form action="{{URL::route('site.contact_us_form')}}" method="post" enctype="text/plain" class="supportForm alt clear-fix">
-								@csrf
+	<div class="widget-contact-form" style="border: 1px solid #eee;margin-top: 15px">
+		<h2 style="color: green;text-align: center;padding: 7px">Please Fillup This Form</h2>
+
+							<form action="{{URL::route('site.regonline')}}" method="post" enctype="text/plain" >
+								{{@csrf_field()}}
 							<div class="row">
 							 <div class="col-md-4">
 							  <div class="form-group">
                               <label for="fname">Student Name</label>
                              <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-info-sign blue"></i></span>
-                                <input type="text" class="form-control" required name="name" placeholder="Full Name">
+                                <input type="text" class="form-control"  name="name" placeholder="Full Name">
+                                <input type="hidden" name="class_id" value="{{$class_id}}">
+                                <input type="hidden" name="admission_id" value="{{$adid}}">
                               </div>
                              </div>
 							</div>
@@ -125,33 +127,104 @@ $current = strtotime(date('Y-m-d H:i:s'));
                             <label for="nationality">Nationality</label>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-info-sign blue"></i></span>
-                                <input type="text" class="form-control" required  name="nationality" placeholder="Nationality">
+                                <input type="text" class="form-control"  name="nationality" placeholder="Nationality">
                             </div>
                         </div>
 						</div>
 						<div class="col-md-4">
                         <div class="form-group ">
                         <label for="photo">Photo</label>
-                        <input id="photo" name="photo" size="50" onchange="previewFile()" required type="file">
+                        <input id="photo" name="photo" size="50" onchange="previewFile()"  type="file">
+                        <small style="color: red">File Size must be Less than 200KB</small>
                         </div>
 
 						</div>
+			
 						<div class="col-md-4">
-							   <div class="form-group ">
-                              <label for="photo" class="text-info">File Size must be Less than 200KB</label>
-                              <label id="lblmsgphoto" class="text-danger"></label>
+					    <div class="form-group ">
+                                   <label for="dob">Date Of Birth</label>
+                                       <div class="input-group">
+
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i> </span>
+                                          <input type="date"   class="form-control datepicker" name="dob" >
+                                      </div>
+                          </div>
+						</div>
+				
+						<div class="col-md-4">
+							   <div class="form-group">
+                              <label class="control-label" for="campus">Campus</label>
+
+                              <div class="input-group">
+                                  <span class="input-group-addon"><i class="glyphicon glyphicon-info-sign blue"></i></span>
+                                  <select name="campus" class="form-control" >
+                                    <option value="">--Select Campus---</option>
+                                      <option value="1">Campus-1</option>
+                                     <option value="2">Campus-2</option>
+
+                                  </select>
+                              </div>
                             </div>
 						</div>
 						<div class="col-md-4">
-							
+							     <div class="form-group">
+                                <label class="control-label" for="keeping">Keeping</label>
+
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-info-sign blue"></i></span>
+                                    <select name="keeping" class="form-control" >
+                                      <option value="">--Select Keeping---</option>
+                                        <option value="Resident">Resident</option>
+                                       <option value="Non-resident">Non-resident</option>
+                                       <option value="Day Care">Day Care</option>
+                                       <option value="Night Care">Night Care</option>
+
+                                    </select>
+                                </div>
+                              </div>
 						</div>
-						<div class="col-md-4"></div>
+						<div class="col-md-3">
+							      <div class="form-group">
+                                <label for="fatherName">Father's Name </label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-info-sign blue"></i></span>
+                                    <input type="text" class="form-control"  name="fatherName" placeholder="Name">
+                                </div>
+                            </div>
+						</div>
+						<div class="col-md-3">
+							     <div class="form-group">
+                                  <label for="fatherCellNo">Father's Mobile No </label>
+                                  <div class="input-group">
+                                      <span class="input-group-addon"><i class="glyphicon glyphicon-info-sign blue"></i></span>
+                                      <input type="text" class="form-control"  name="fatherCellNo" placeholder="+8801xxxxxxxxx">
+                                  </div>
+                              </div>
+						</div>
+						<div class="col-md-3">
+							  <div class="form-group">
+                            <label for="motherName">Mother's Name </label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-info-sign blue"></i></span>
+                                <input type="text" class="form-control"   name="motherName" placeholder="Name">
+                            </div>
+                        </div>
+						</div>
+						<div class="col-md-3">
+							   <div class="form-group">
+                              <label for="motherCellNo">Mother's Mobile No </label>
+                              <div class="input-group">
+                                  <span class="input-group-addon"><i class="glyphicon glyphicon-info-sign blue"></i></span>
+                                  <input type="text" class="form-control"  name="motherCellNo" placeholder="+8801xxxxxxxxx">
+                              </div>
+                          </div>
+						</div>
 					</div>
 						
-								<button type="submit" class="cws-button border-radius alt">@lang('site.send')</button>
-							</form>
+				<button type="submit" class=" border-radius alt">Registration</button>
+			</form>
 							<!--/contact-form -->
-						</div>
+		</div>
 
 @endif
 
@@ -200,22 +273,25 @@ $current = strtotime(date('Y-m-d H:i:s'));
 
 setInterval(function() { makeTimer(); }, 1000);
 
-// var countDownDate = new Date('{{$end}}').getTime();
+function previewFile() {
+  var preview = document.querySelector('img');
+  var file    = document.querySelector('input[type=file]').files[0];
+  var reader  = new FileReader();
 
-// var x = setInterval(function() {
+  reader.onloadend = function () {
+    preview.src = reader.result;
+  }
+  var sizeImg =file.size/1024;
+  if (sizeImg<=200) {
+    reader.readAsDataURL(file);
+    $('#lblmsgphoto').text('');
+  } else {
+    preview.src = "";
+    document.getElementById("photo").value = "";
+    $('#lblmsgphoto').text('File is Too big!');
+  }
 
-//   var now = new Date().getTime();
-//   var distance = countDownDate - now;
-  
-//   var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-//   var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-//   var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-//   var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-    
-//   document.getElementById("demo").innerHTML = days + "d " + hours + "h "
-//   + minutes + "m " + seconds + "s ";
-
-// }, 1000);
+}
 </script>
 
 @endsection

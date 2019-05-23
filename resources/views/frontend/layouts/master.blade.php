@@ -47,11 +47,24 @@
     <!-- Google Analytics code -->
     <script async src="https://www.googletagmanager.com/gtag/js?id={{$GA_TRACKING_ID}}"></script>
     <script>
+
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
         gtag('config', '{{$GA_TRACKING_ID}}');
     </script>
+         {!! Toastr::message() !!}
+
+        <script>
+            @if($errors->any())
+              @foreach($errors->all() as $error)
+              toastr.error('{{$error}}','Error',{
+                closeButton:true,
+                progressBar:true,
+              });
+              @endforeach
+            @endif
+        </script>
     <!-- /Google Analytics code -->
     @endif
 
