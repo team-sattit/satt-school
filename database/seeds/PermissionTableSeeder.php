@@ -1185,7 +1185,7 @@ class PermissionTableSeeder extends Seeder {
 			],
 			[
 				"slug" => "postgradesheet",
-				"name" => "Gradesheet Create",
+				"name" => "GradesheetPost View",
 				"group" => "Gradesheet",
 			],
 			[
@@ -1205,7 +1205,7 @@ class PermissionTableSeeder extends Seeder {
 			],
 			[
 				"slug" => "posttabulation",
-				"name" => "Tabulation Create",
+				"name" => "TabulationPost View",
 				"group" => "TabulationSheet",
 			],
 
@@ -1221,7 +1221,7 @@ class PermissionTableSeeder extends Seeder {
 			],
 			[
 				"slug" => "passing_postsummary",
-				"name" => "PassingSummary View",
+				"name" => "PassingSummaryPost View",
 				"group" => "ResultSummary",
 			],
 			[
@@ -1333,7 +1333,7 @@ class PermissionTableSeeder extends Seeder {
 
 			[
 				"slug" => "student.fee.collection",
-				"name" => "StudentFeeCollection View",
+				"name" => "StudentFeeCollection Create",
 				"group" => "Fees",
 			],
 
@@ -1363,7 +1363,7 @@ class PermissionTableSeeder extends Seeder {
 
 			[
 				"slug" => "student.fee.postcollection",
-				"name" => "StudentFeePost View",
+				"name" => "StudentFeeCollection Create",
 				"group" => "Fees",
 			],
 
@@ -1402,9 +1402,354 @@ class PermissionTableSeeder extends Seeder {
 			// Fees
 		];
 
+
+		$promotionPermissionList = [
+			//get promotion
+			[
+				"slug" => "promotion",
+				"name" => "Promotion Create",
+				"group" => "Promotion",
+			],
+			[
+				"slug" => "post-promotion",
+				"name" => "Promotion Create",
+				"group" => "Promotion",
+			],
+		
+
+			//get promotion
+		];
+
+
+		$dormitoryPermissionList = [
+			//get dormitory
+			[
+				"slug" => "dormitory",
+				"name" => "Dormitory Create",
+				"group" => "Dormitory",
+			],
+			[
+				"slug" => "dormitory.create",
+				"name" => "Dormitory Create",
+				"group" => "Dormitory",
+			],
+		
+		    [
+				"slug" => "dormitory.edit",
+				"name" => "Dormitory Edit",
+				"group" => "Dormitory",
+			],
+			[
+				"slug" => "dormitory.update",
+				"name" => "Dormitory Edit",
+				"group" => "Dormitory",
+			],
+			[
+				"slug" => "dormitory.delete",
+				"name" => "Dormitory Delete",
+				"group" => "Dormitory",
+			],
+             	[
+				"slug" => "dormitory.getstudents",
+				"name" => "DormitoryStudent View",
+				"group" => "Dormitory",
+			],
+				[
+				"slug" => "dormitory.assignstd",
+				"name" => "DormitoryStudent Create",
+				"group" => "Dormitory",
+			],
+				[
+				"slug" => "dormitory.assignstd.create",
+				"name" => "DormitoryStudent Create",
+				"group" => "Dormitory",
+			],
+				[
+				"slug" => "dormitory.assignstd.list",
+				"name" => "DormitoryStudent View",
+				"group" => "Dormitory",
+			],	
+			[
+				"slug" => "dormitory.assignstd.postlist",
+				"name" => "DormitoryStudent View",
+				"group" => "Dormitory",
+			],	
+			[
+				"slug" => "dormitory.assignstd.edit",
+				"name" => "DormitoryStudent Edit",
+				"group" => "Dormitory",
+			],	
+			[
+				"slug" => "dormitory.assignstd.update",
+				"name" => "DormitoryStudent Edit",
+				"group" => "Dormitory",
+			],	
+			[
+				"slug" => "dormitory.assignstd.delete",
+				"name" => "DormitoryStudent Delete",
+				"group" => "Dormitory",
+			],
+			[
+				"slug" => "dormitory.fee",
+				"name" => "DormitoryFess Create",
+				"group" => "Dormitory",
+			],	
+			[
+				"slug" => "dormitory.fee.info",
+				"name" => "DormitoryFess View",
+				"group" => "Dormitory",
+			],	
+			[
+				"slug" => "dormitory.fee",
+				"name" => "DormitoryFess Create",
+				"group" => "Dormitory",
+			],	
+			[
+				"slug" => "dormitory.mainfee",
+				"name" => "DormitoryFess View",
+				"group" => "Dormitory",
+			],	
+			[
+				"slug" => "dormitory.fee.print",
+				"name" => "DormitoryPrintFess View",
+				"group" => "Dormitory",
+			],	
+			[
+				"slug" => "dormitory.report.std",
+				"name" => "DormitoryStdReport View",
+				"group" => "Dormitory",
+			],	
+			[
+				"slug" => "dormitory.report.postst",
+				"name" => "DormitoryStdReport View",
+				"group" => "Dormitory",
+			],	
+			[
+				"slug" => "dormitory.report.fee",
+				"name" => "DormitoryFessReport View",
+				"group" => "Dormitory",
+			],
+			[
+				"slug" => "dormitory.report.postfee",
+				"name" => "DormitoryFessReport View",
+				"group" => "Dormitory",
+			],
+			//get dormitory
+		];
+
+
+		$sallaryPermissionList = [
+			//get promotion
+			[
+				"slug" => "sallary.setuplist",
+				"name" => "SallarySetup View",
+				"group" => "Sallary",
+			],
+			[
+				"slug" => "sallary.setup.active",
+				"name" => "SallarySetup Edit",
+				"group" => "Sallary",
+			],
+			[
+				"slug" => "sallary.setup.inactive",
+				"name" => "SallarySetup Edit",
+				"group" => "Sallary",
+			],
+			[
+				"slug" => "sallary.setup.edit",
+				"name" => "SallarySetup Edit",
+				"group" => "Sallary",
+			],
+			[
+				"slug" => "sallary.setup.update",
+				"name" => "SallarySetup Edit",
+				"group" => "Sallary",
+			],
+			[
+				"slug" => "sallary.setup.delete",
+				"name" => "SallarySetup Delete",
+				"group" => "Sallary",
+			],
+			[
+				"slug" => "sallary",
+				"name" => "SallarySetup Create",
+				"group" => "Sallary",
+			],
+			[
+				"slug" => "sallary.setup",
+				"name" => "SallarySetup Create",
+				"group" => "Sallary",
+			],
+			[
+				"slug" => "sallary.payment",
+				"name" => "Payment Create",
+				"group" => "Sallary",
+			],
+			[
+				"slug" => "sallary.sallaryinfo",
+				"name" => "Payment View",
+				"group" => "Sallary",
+			],
+			[
+				"slug" => "sallary.payment.print",
+				"name" => "Payment View",
+				"group" => "Sallary",
+			],[
+				"slug" => "sallary.checkpayment",
+				"name" => "Payment View",
+				"group" => "Sallary",
+			],
+			[
+				"slug" => "sallary.postpayment",
+				"name" => "Payment Create",
+				"group" => "Sallary",
+			],	
+			[
+				"slug" => "sallary.report",
+				"name" => "PaymentReport View",
+				"group" => "Sallary",
+			],	
+			[
+				"slug" => "sallary.emp.report",
+				"name" => "PaymentReport View",
+				"group" => "Sallary",
+			],	
+			[
+				"slug" => "sallary.emp.allreport",
+				"name" => "PaymentReport View",
+				"group" => "Sallary",
+			],
+		
+
+			//get sallary
+		];
+
+			$accountPermissionList = [
+			//get Account
+			[
+				"slug" => "sectors",
+				"name" => "Sector Create",
+				"group" => "Account",
+			],
+			[
+				"slug" => "accounting.sectorcreate",
+				"name" => "Sector Create",
+				"group" => "Account",
+			],
+			[
+				"slug" => "accounting.sectoredit",
+				"name" => "Sector Edit",
+				"group" => "Account",
+			],
+			[
+				"slug" => "accounting.sectorupdate",
+				"name" => "Sector Edit",
+				"group" => "Account",
+			],
+			[
+				"slug" => "accounting.sectordelete",
+				"name" => "Sector Delete",
+				"group" => "Account",
+			],
+			[
+				"slug" => "accounting.income",
+				"name" => "Income Create",
+				"group" => "Account",
+			],
+			[
+				"slug" => "accounting.incomecreate",
+				"name" => "Income Create",
+				"group" => "Account",
+			],	
+			[
+				"slug" => "accounting.incomelist",
+				"name" => "Income View",
+				"group" => "Account",
+			],	
+			[
+				"slug" => "accounting.postincomelist",
+				"name" => "Income View",
+				"group" => "Account",
+			],	
+			[
+				"slug" => "accounting.incomeedit",
+				"name" => "Income Edit",
+				"group" => "Account",
+			],	
+			[
+				"slug" => "accounting.postincomeupdate",
+				"name" => "Income Edit",
+				"group" => "Account",
+			],
+			[
+				"slug" => "accounting.incomedelete",
+				"name" => "Income Delete",
+				"group" => "Account",
+			],
+			[
+				"slug" => "accounting.expence",
+				"name" => "Expence Create",
+				"group" => "Account",
+			],
+			[
+				"slug" => "accounting.expencecreate",
+				"name" => "Expence Create",
+				"group" => "Account",
+			],
+			[
+				"slug" => "accounting.expencelist",
+				"name" => "Expence View",
+				"group" => "Account",
+			],
+			[
+				"slug" => "accounting.postexpencelist",
+				"name" => "Expence View",
+				"group" => "Account",
+			],
+			[
+				"slug" => "accounting.expenceedit",
+				"name" => "Expence Edit",
+				"group" => "Account",
+			],
+			[
+				"slug" => "accounting.expenceupdate",
+				"name" => "Expence Edit",
+				"group" => "Account",
+			],
+			[
+				"slug" => "accounting.expencedelete",
+				"name" => "Expence Delete",
+				"group" => "Account",
+			],
+			[
+				"slug" => "accounting.report",
+				"name" => "Report view",
+				"group" => "Account",
+			],
+			[
+				"slug" => "accounting.reportsum",
+				"name" => "Report view",
+				"group" => "Account",
+			],
+			[
+				"slug" => "accounting.reportprint",
+				"name" => "Report view",
+				"group" => "Account",
+			],
+			[
+				"slug" => "accounting.reportprintsum",
+				"name" => "Expence View",
+				"group" => "Account",
+			],
+		
+		
+
+			//get account
+		];
+
 		//merge all permissions and insert into db
 		$permissions = array_merge($commonPermissionList, $administratorPermissionList, $onlyAdminPermissions,
-			$academicPermissionList, $websitePermissionList, $hrmPermissionList, $examPermissionList, $reportsPermissionList, $feesPermissionList, $libraryPermissionList, $gradesheetPermissionList, $tabulationPermissionList, $resultsummaryPermissionList, $admissionPermissionList, $academicinfoPermissionList, );
+			$academicPermissionList, $websitePermissionList, $hrmPermissionList, $examPermissionList, $reportsPermissionList, $feesPermissionList, $libraryPermissionList, $gradesheetPermissionList, $tabulationPermissionList, $resultsummaryPermissionList, $admissionPermissionList, $academicinfoPermissionList,$promotionPermissionList,$dormitoryPermissionList,$sallaryPermissionList,$accountPermissionList );
 
 		echo PHP_EOL, 'seeding permissions...';
 

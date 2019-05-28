@@ -443,9 +443,10 @@
                   $('#month').hide();
               }
               var aclass = $('#class').val();
+              var student = $('#student').val();
               var type =  $('#type').val();
               $.ajax({
-                  url: '/fee/getListjson/'+aclass+'/'+type,
+                  url: '/fee/getListjson/'+aclass+'/'+type+'/'+student,
                   data: {
                       format: 'json'
                   },
@@ -459,7 +460,7 @@
                     $.each(data, function(i, fee) {
                        // console.log(fee);
 
-                        $('#fee').append($('<option>').text(fee.title).attr('value', fee.id));
+                        $('#fee').append($('<option>').text(fee.title).attr('value', fee.feeid));
                     });
                        $('.select2').select2();
 

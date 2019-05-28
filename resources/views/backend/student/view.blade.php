@@ -82,7 +82,7 @@
                         <li><a href="#mark" data-toggle="tab">Mark</a></li>
                         <li><a href="#invoice" data-toggle="tab">Invoice</a></li>
                         <li><a href="#payment" data-toggle="tab">Payment</a></li>
-                        {{--<li><a href="#document" data-toggle="tab">Document</a></li>--}}
+                        <li><a href="#cashInfo" data-toggle="tab">Cash Info</a></li>
                     </ul>
 
                     <div class="tab-content">
@@ -360,7 +360,33 @@
                             </table>
                         </div>
                         <div class="tab-pane" id="mark">
-      
+                            <table id="markTable" class="table table-responsive table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">Exam Name</th>
+                                        <th class="text-center">Subject name</th>
+                                        <th class="text-center">Marks</th>
+                                        <th class="text-center">total marks</th>
+                                        <th class="text-center">Grade</th>
+                                        <th class="text-center">Point</th>
+                                    </tr>
+                                    </thead>
+                                <tbody>
+                                  @forelse($student->marks as $mark)
+                                   <tr>
+                                 <td class="text-center">{{$mark->exam->name}}</td>
+                                 <td class="text-center">{{$mark->subject->name}}</td>
+                                 <td class="text-center">{{$mark->marks}}</td>
+                                 <td class="text-center">{{$mark->total_marks}}</td>
+                                 <td class="text-center">{{$mark->grade}}</td>
+                                 <td class="text-center">{{$mark->point}}</td>
+                                   </tr>
+                                   @empty
+                                   <td colspan="6">No data found</td>
+                                   @endforelse
+                                </tbody>
+                                
+                            </table>
                         </div>
                         <div class="tab-pane" id="invoice">
                               <table id="invoiceTable" class="table table-responsive table-bordered table-hover">
@@ -433,6 +459,38 @@
                                        <td class="text-center">{{$collect->dueAmount}}</td>
                                    </tr>
                                    @endforeach 
+                                </tbody>
+                                
+                            </table>
+                        </div>
+                          <div class="tab-pane" id="cashInfo">
+                                  <table id="cashinfoTable" class="table table-responsive table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">Fee Title</th>
+                                        <th class="text-center">Fee Type</th>
+                                        <th class="text-center">Payable amt</th>
+                                        <th class="text-center">Paid amt</th>
+                                        <th class="text-center">Due amt</th>
+                                    </tr>
+                                    </thead>
+                                <tbody>
+                                  @forelse($student->studentfees as $cash)
+                                   <tr>
+                                       <td class="text-center">{{$cash->title}}</td>
+                                       <td class="text-center">{{$cash->type}}</td>
+                                       <td class="text-center">{{$cash->fee}}</td>
+                                      @php
+                                          $paid =App\FeeHistory::where('regi',$student->regi_no)->where('title',$cash->title)->get();
+                                      @endphp
+                                      <td class="text-center">{{number_format($paid->sum('fee'),2)}}</td>
+                                      <td class="text-center">
+                                         {{number_format($cash->fee - $paid->sum('fee'),2)}} 
+                                      </td>
+                                   </tr>
+                                   @empty
+                                   <td colspan="5">No data found</td>
+                                   @endforelse
                                 </tbody>
                                 
                             </table>

@@ -47,7 +47,7 @@ class WorkOutside extends Model
     public function scopeWhereWorkDate($query, $work_date)
     {
         if(strlen($work_date)){
-            return $query->whereDate('work_date', Carbon::createFromFormat('d/m/Y', $leave_date)->format('Y-m-d'));
+            return $query->whereDate('work_date', Carbon::createFromFormat('d/m/Y', $work_date)->format('Y-m-d'));
         }
 
         return $query;

@@ -43,6 +43,22 @@
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                    <input type="hidden" name="id" value="{{$fee->id }}">
                    <div class="form-group">
+
+                      <div class="form-group">
+                        <label class="control-label" for="class">Academic session</label>
+
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-home blue"></i></span>
+                            <select id="class" name="academic_year_id" class="form-control select2" required="required" >
+                                <option value="">Select academic session</option>
+                                @foreach($academic_years as $academic_year)
+                                    <option {{$academic_year->id ==$fee->academic_year_id ? 'selected' : ''}} value="{{$academic_year->id}}">{{$academic_year->title}}</option>
+                                @endforeach
+
+                            </select>
+                            <span class="text-danger">{{ $errors->first('academic_year_id') }}</span>
+                        </div>
+                    </div>
                        <label class="control-label" for="class">Class</label>
 
 

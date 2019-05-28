@@ -851,12 +851,123 @@ class AppHelper {
 		}
 	}
 
-	public function getmarktype($exam, $mark, $value) {
-		$exam = json_decode($exam->marks_distribution_types, true);
-		$mark = json_decode($mark->marks, true);
-		if (in_array($value, $exam) && in_array($value, $mark)) {
+		public static function getmonthbyedor($id) {
+	  if ($id ==01) {
+	  	return 'January';
+	  }
 
+	  elseif($id ==02)
+	  {
+	  	return 'February';
+	  }
+	   elseif($id ==03)
+	  {
+	  	return 'Merch';
+	  }
+	   elseif($id ==04)
+	  {
+	  	return 'Aprail';
+	  }
+	   elseif($id ==05)
+	  {
+	  	return 'May';
+	  }
+	   elseif($id ==06)
+	  {
+	  	return 'June';
+	  }
+
+	   elseif($id ==07)
+	  {
+	  	return 'July';
+	  }
+	   elseif($id == '08')
+	  {
+	  	return 'August';
+	  }
+	   elseif($id == '09')
+	  {
+	  	return 'September';
+	  }
+	   elseif($id ==10)
+	  {
+	  	return 'October';
+	  }
+	   elseif($id ==11)
+	  {
+	  	return 'November';
+	  }  elseif($id ==12)
+	  {
+	  	return 'December';
+	  }
+	}
+
+public static  function religion($id)
+{
+			switch ($id) {
+		case 'Islam':
+			return 1;
+			break;
+		case 'Hindu':
+			return 2;
+			break;
+		case 'Cristian':
+			return 3;
+			break;
+		case 'Buddhist':
+			return 4;
+			break;
+		case 'Other':
+			return 5;
+			break;
+		default:
+			return "No Math";
 		}
+}
 
+public static  function gender($id)
+{
+			switch ($id) {
+		case 'Male':
+			return 1;
+			break;
+		case 'Female':
+			return 2;
+			break;
+		default:
+			return "No Math";
+		}
+}
+
+public static  function Blood($id)
+{
+			switch ($id) {
+		case 'A+':
+			return 1;
+			break;
+		case 'O+':
+			return 2;
+			break;
+		case 'B+':
+			return 3;
+			break;
+		case 'AB+':
+			return 4;
+			break;
+		case 'A-':
+			return 5;
+			break;
+		case 'O-':
+			return 6;
+			break;
+		case 'B-':
+			return 7;
+			break;
+		case 'AB-':
+			return 8;
+			break;
+		default:
+			return "No Math";
+		}
 	}
 }

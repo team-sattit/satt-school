@@ -16,6 +16,7 @@ class CreateFeeHistoriesTable extends Migration
         Schema::create('fee_histories', function (Blueprint $table) {
             $table->increments('id');
             $table->string('billNo',20);
+            $table->string('regi',50);
             $table->string('title',100);
             $table->string('month',5);
             $table->decimal('fee',18,2);
