@@ -11,7 +11,7 @@ class Registration extends Model
     use SoftDeletes;
     use UserstampsTrait;
 
-protected $with=['student','info','class','section','acYear','attendance','attendanceSingleDay','result','marks','fees'];
+protected $with=['student','info','class','section','acYear','attendance','attendanceSingleDay','result','marks','fees','studentfees'];
     /**
      * The attributes that are mass assignable.
      *
@@ -30,6 +30,7 @@ protected $with=['student','info','class','section','acYear','attendance','atten
         'fourth_subject',
         'alt_fourth_subject',
         'house',
+        'fee_total',
         'status',
     ];
 
@@ -81,6 +82,10 @@ protected $with=['student','info','class','section','acYear','attendance','atten
     public function marks()
     {
         return $this->hasMany('App\Mark', 'registration_id');
+    }
+    public function studentfees()
+    {
+        return $this->hasMany('App\StudentFees','regi_num','regi_no');
     }
 
     public function scopeSection($query, $section)

@@ -129,7 +129,7 @@
 
                           <div class="input-group">
                               <span class="input-group-addon"><i class="glyphicon glyphicon-book blue"></i></span>
-                              <select id="student" name="student" class="form-control" required="true">
+                              <select id="student" name="student" class="form-control select2" required="true">
                                   <option value="">--Select Student--</option>
                               </select>
                           </div>
@@ -173,7 +173,7 @@
                               <th>Paid Amount</th>
                               <th>Due Amount</th>
                               <th>Pay Date</th>
-                              <th>Action</th>
+                          
                           </tr>
                           </thead>
                           <tbody>
@@ -185,17 +185,7 @@
                                   <td>{{$fee->dueAmount}}</td>
                                   <td>{{$fee->date}}</td>
 
-                                  <td>
-                                              <div class="btn-group">
-                                            <form  class="myAction" method="POST" action="{{URL::route('student.feessetup_destroy')}}">
-                                                {{@csrf_field()}}
-                                                <input type="hidden" name="hiddenId" value="{{$fee->billNo}}">
-                                                <button type="submit" class="btn btn-danger btn-sm" title="Delete">
-                                                    <i class="fa fa-fw fa-trash"></i>
-                                                </button>
-                                            </form>
-                                        </div>
-                                  </td>
+
                           @endforeach
                           </tbody>
                       </table>

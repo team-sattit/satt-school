@@ -17,10 +17,11 @@ class CreateFeeSetupsTable extends Migration
             $table->increments('id');
 
             $table->string('class_id',20);
+            $table->integer('academic_year_id');
             $table->string('type',20);
             $table->string('title',100);
             $table->decimal('fee',18,2);
-            $table->decimal('Latefee',18,2)->default(0);
+            $table->decimal('Latefee',18,2)->nullable();
             $table->text('description')->nullable();
             $table->timestamps();
         });

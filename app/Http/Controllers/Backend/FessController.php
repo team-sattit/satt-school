@@ -30,13 +30,15 @@ class FessController extends Controller {
 
 	public function getsetup() {
 		$classes = IClass::orderby('id', 'asc')->get();
-		return view('backend.fees.feesSetup', compact('classes'));
+		$academic_years =AcademicYear::all();
+		return view('backend.fees.feesSetup', compact('classes','academic_years'));
 	}
 
 	public function postSetup() {
 		$rules = [
 
 			'class_id' => 'required',
+			'academic_year_id' => 'required',
 			'type' => 'required',
 			'fee' => 'required|numeric',
 			'title' => 'required',
@@ -51,6 +53,7 @@ class FessController extends Controller {
 			$fee = new FeeSetup();
 
 			$fee->class_id = Input::get('class_id');
+			$fee->academic_year_id = Input::get('academic_year_id');
 			$fee->type = Input::get('type');
 			$fee->title = Input::get('title');
 			$fee->fee = Input::get('fee');
@@ -64,8 +67,9 @@ class FessController extends Controller {
 
 	public function feessetup_edit($id) {
 		$classes = IClass::all();
+		$academic_years =AcademicYear::all();
 		$fee = FeeSetup::find($id);
-		return View::Make('backend.fees.feesSetup_edit', compact('fee', 'classes'));
+		return View::Make('backend.fees.feesSetup_edit', compact('fee', 'classes','academic_years'));
 	}
 
 	public function feessetup_update() {
@@ -111,15 +115,15 @@ class FessController extends Controller {
 		return View::Make('backend.fees.feeCollection', compact('classes','section','academicYear'));
 	}
 
-	public function getListjson($class,$type)
+	public function getListjson($class,$type,$student)
 	{
-		$fees= FeeSetup::select('id','title')->where('class_id','=',$class)->where('type','=',$type)->get();
+		$fees= StudentFees::where('class_id','=',$class)->where('regi_num','=',$student)->where('type','=',$type)->get();
 		return $fees;
 	}
 
 	public function getFeeInfo($id,$stdid)
 	{
-		$fee= StudentFees::select('fee','Latefee')->where('regi_num','=',$stdid)->where('feeid',$id)->get();
+		$fee= StudentFees::where('regi_num','=',$stdid)->where('feeid',$id)->get();
 		return $fee;
 	}
 
@@ -191,6 +195,7 @@ class FessController extends Controller {
 						for ($i=0;$i<$counter;$i++) {
 							$feehistory = new FeeHistory();
 							$feehistory->billNo=$billId;
+							$feehistory->regi=Input::get('regi_no');
 							$feehistory->title=$feeTitles[$i];
 							$feehistory->fee=$feeAmounts[$i];
 							$feehistory->lateFee=$feeLateAmounts[$i];

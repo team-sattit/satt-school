@@ -263,6 +263,24 @@
             </a>
           </li>
           @endcan
+
+           <li>
+            <a href="{{ URL::route('sallary.setuplist') }}">
+              <i class="fa icon-mailandsms"></i> <span>Sallary Setup</span>
+            </a>
+          </li>
+
+            <li>
+            <a href="{{ URL::route('sallary.payment') }}">
+              <i class="fa fa-circle-o"></i> <span>Sallary Payment</span>
+            </a>
+          </li>  
+
+            <li>
+            <a href="{{ URL::route('sallary.report') }}">
+              <i class="fa fa-circle-o"></i> <span>Sallary Report</span>
+            </a>
+          </li>
         </ul>
       </li>
       @endnotrole
@@ -334,6 +352,34 @@
             <li ><a href="{{ route('student.fee.report') }}"><i class="fa fa-circle-o"></i> Fee Collection Report</a></li>
           </ul>
     </li>
+<<<<<<< HEAD
+=======
+   @endrole
+
+    <li class="treeview">
+        <a href="#">
+          <i class="fa fa-user-secret"></i>
+          <span>Dormitory</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+          <ul class="treeview-menu">
+            <li><a href="{{ route('dormitory') }}"><i class="fa fa-circle-o"></i>Dormitory</a></li>
+
+            <li ><a href="{{ route('dormitory.assignstd') }}"><i class="fa fa-circle-o"></i> Assign Student</a></li>
+
+            <li  ><a href="{{ route('dormitory.assignstd.list') }}"><i class="fa fa-circle-o"></i> Student List</a></li>
+
+            <li ><a href="{{ route('dormitory.fee') }}"><i class="fa fa-circle-o"></i> Fee Collection</a></li>
+
+            <li ><a href="{{ route('dormitory.report.std') }}"><i class="fa fa-circle-o"></i> Dormitory Report</a></li>
+
+             <li ><a href="{{ route('dormitory.report.fee') }}"><i class="fa fa-circle-o"></i> Fee Reports</a></li>
+
+          </ul>
+    </li>
+>>>>>>> 5fbea060bcd2e5e0e37f755882b43edc8c286d2f
       @can('user.index')
       <li>
         <a href="{{ URL::route('user.index') }}">
@@ -341,6 +387,28 @@
         </a>
       </li>
       @endcan
+
+          <li class="treeview">
+        <a href="#">
+          <i class="fa fa-user-secret"></i>
+          <span>Accounting</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+          <ul class="treeview-menu">
+            <li><a href="{{ route('sectors') }}"><i class="fa fa-circle-o"></i>Sectors</a></li>
+
+            <li ><a href="{{ route('accounting.income') }}"><i class="fa fa-circle-o"></i> Add Income</a></li>
+
+            <li  ><a href="{{ route('accounting.incomelist') }}"><i class="fa fa-circle-o"></i> View Income</a></li>
+
+            <li ><a href="{{ route('accounting.expence') }}"><i class="fa fa-circle-o"></i> Add Expence</a></li>
+
+            <li ><a href="{{ route('accounting.expencelist') }}"><i class="fa fa-circle-o"></i> View Expence</a></li>
+
+          </ul>
+    </li>
       <li class="treeview">
         <a href="#">
           <i class="fa fa-file-pdf-o"></i>
@@ -509,6 +577,24 @@
                 <a href="{{ route('tabulation') }}"><i class="fa fa-list-alt"></i><span>Tabulationsheet</span></a>
               </li>
               @endcan
+            </ul>
+          </li>
+
+          <li class="treeview">
+            <a href="#">
+              <i class="fa icon-hostel"></i>
+              <span>Account</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li>
+                <a href="{{ route('accounting.report') }}"><i class="fa fa-list-alt"></i><span>Account By Type</span></a>
+              </li>
+              <li>
+                <a href="{{ route('accounting.reportsum') }}"><i class="fa fa-list-alt"></i><span>Account Balance</span></a>
+              </li>
             </ul>
           </li>
           {{-- <li class="treeview">

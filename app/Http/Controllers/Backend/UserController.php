@@ -26,6 +26,7 @@ use Illuminate\Support\Facades\Password;
 use Illuminate\Contracts\Hashing\Hasher as HasherContract;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Helpers\AppHelper;
+use Brian2694\Toastr\Facades\Toastr;
 
 class UserController extends Controller
 {
@@ -86,7 +87,8 @@ class UserController extends Controller
             return redirect()->intended('dashboard')->with($msgType, $msg);
 
         }
-        return redirect()->route('login')->with('error', 'Your email/password combination was incorrect OR account disabled!');
+        Toastr::warning('Please Add Atlest one Fee:','Warning');
+        return redirect()->route('login')->with('error', 'Your email/password combination was incorrect');
     }
 
 

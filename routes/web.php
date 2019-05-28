@@ -355,7 +355,7 @@ Route::group(
 		Route::get('/fees/collection', 'FessController@getCollection')->name('student.fee.collection');
 
 		Route::get('/student/getList/{class}/{section}/{shift}/{session}', 'StudentController@getStudentList')->name('student.getlist');
-		Route::get('/fee/getListjson/{class}/{type}', 'FessController@getListjson')->name('student.fee.getListjson');
+		Route::get('/fee/getListjson/{class}/{type}/{student}', 'FessController@getListjson')->name('student.fee.getListjson');
 		Route::get('/fee/getFeeInfo/{id}/{stdid}', 'FessController@getFeeInfo')->name('student.fee.getFeeInfo');
 		Route::get('/fee/getDue/{class}/{stdId}', 'FessController@getDue')->name('student.fee.getDue');
 		Route::get('/fees/collection/{id}', 'FessController@feeprint')->name('student.fee.print');
@@ -451,10 +451,92 @@ Route::group(
 		Route::get('/get-subject', 'ResultSummaryController@get_subject')->name('get-subject');
 		Route::get('/get-section', 'ResultSummaryController@get_section')->name('get-section');
 		Route::get('/get-exam', 'ResultSummaryController@get_exam')->name('get-exam');
+		//no permission
 		Route::get('/get-studentfee','StudentController@get_studentfee')->name('get-studentfee');
-
+//no permission
 		//promotion
 		Route::get('/promotion','PromotionController@index')->name('promotion');
+		Route::get('/promotion/studentlist/{class}/{section}/{shift}/{session}', 'PromotionController@getStudentList')->name('student.getlist');
+		Route::post('/promotion','PromotionController@post_promotion')->name('post-promotion');
+
+		//hostel
+		Route::get('/dormitory','DormitoryController@index')->name('dormitory');
+		Route::post('/dormitory/create','DormitoryController@create')->name('dormitory.create');
+		Route::get('/dormitory/edit/{id}','DormitoryController@edit')->name('dormitory.edit');
+		Route::post('/dormitory/update','DormitoryController@update')->name('dormitory.update');
+		Route::get('/dormitory/delete/{id}', 'DormitoryController@delete')->name('dormitory.delete');
+		Route::get('/dormitory/getstudents/{dormid}', 'DormitoryController@getstudents')->name('dormitory.getstudents');
+
+		Route::get('/dormitory/assignstd', 'DormitoryController@stdindex')->name('dormitory.assignstd');
+		Route::post('/dormitory/assignstd/create', 'DormitoryController@stdcreate')->name('dormitory.assignstd.create');
+		Route::get('/dormitory/assignstd/list', 'DormitoryController@stdshow')->name('dormitory.assignstd.list');
+		Route::post('/dormitory/assignstd/list', 'DormitoryController@poststdShow')->name('dormitory.assignstd.postlist');
+		Route::get('/dormitory/assignstd/edit/{id}','DormitoryController@stdedit')->name('dormitory.assignstd.edit');
+		Route::post('/dormitory/assignstd/update','DormitoryController@stdupdate')->name('dormitory.assignstd.update');
+		Route::get('dormitory/assignstd/delete/{id}','DormitoryController@stddelete')->name('dormitory.assignstd.delete');
+
+		Route::get('/dormitory/fee','DormitoryController@feeindex')->name('dormitory.fee');
+		Route::get('/dormitory/fee/info/{regiNo}', 'DormitoryController@feeinfo')->name('dormitory.fee.info');
+		Route::post('/dormitory/fee','DormitoryController@feeadd')->name('dormitory.fee');
+		Route::get('/dormitory/mainfee','DormitoryController@mainfee')->name('dormitory.mainfee');
+		Route::get('/dormitory/fees/print/{id}','DormitoryController@feesprint')->name('dormitory.fee.print');
+		Route::get('/dormitory/report/std','DormitoryController@reportstd')->name('dormitory.report.std');
+		Route::get('/dormitory/report/std/{dormId}','DormitoryController@reportstdprint')->name('dormitory.report.postst');
+		Route::get('/dormitory/report/fee','DormitoryController@reportfee')->name('dormitory.report.fee');
+		Route::get('/dormitory/report/fee/{dormId}/{month}', 'dormitoryController@reportfeeprint')->name('dormitory.report.postfee');
+
+		//sallary system....
+		Route::get('/sallary/setuplist','SallaryController@setuplist')->name('sallary.setuplist');
+		Route::get('/sallary/setup/active/{id}','SallaryController@setupactive')->name('sallary.setup.active');
+		Route::get('/sallary/setup/inactive/{id}','SallaryController@setupinactive')->name('sallary.setup.inactive');
+		Route::get('sallary/setup/edit/{id}','SallaryController@setupedit')->name('sallary.setup.edit');
+        Route::post('/sallary/setup/update','SallaryController@setupupade')->name('sallary.setup.update');
+        Route::post('/sallary/setup/delete', 'SallaryController@sallarysetup_destroy')->name('sallary.setup.delete');
+
+		Route::get('/sallary','SallaryController@index')->name('sallary');
+		Route::get('/sallary/jsonemployee/{id}','SallaryController@jsonemployee')->name('sallary.jsonemployee');
+		Route::post('/sallary/setup','SallaryController@setup')->name('sallary.setup');
+		Route::get('/sallary/payment','SallaryController@payment')->name('sallary.payment');
+		Route::get('/sallary/sallaryinfo','SallaryController@sallaryinfo')->name('sallary.sallaryinfo');
+		Route::get('/sallary/payment/print/{id}','SallaryController@paymentprint')->name('sallary.payment.print');
+		Route::get('/sallary/checkpayment','SallaryController@checkpayment')->name('sallary.checkpayment');
+		Route::post('sallary/payment','SallaryController@postpayment')->name('sallary.postpayment');
+		Route::get('sallary/report','SallaryController@report')->name('sallary.report');
+		Route::get('sallary/report/{employee}/{fdate}/{tdate}','SallaryController@employee_sallary_report')->name('sallary.emp.report');
+		Route::get('sallary/allreport/{fdate}/{tdate}','SallaryController@employee_allsallary_report')->name('sallary.emp.allreport');
+
+		//accounting route...
+		Route::get('/accounting/sectors', 'AccountingController@sectors')->name('sectors');
+		Route::post('/accounting/sectorcreate', 'AccountingController@sectorCreate')->name('accounting.sectorcreate');
+		Route::get('/accounting/sectorlist', 'AccountingController@sectorList');
+
+		Route::get('/accounting/sectoredit/{id}', 'AccountingController@sectorEdit')->name('accounting.sectoredit');
+		Route::post('/accounting/sectorupdate', 'AccountingController@sectorUpdate')->name('accounting.sectorupdate');
+		Route::post('/accounting/sectordelete', 'AccountingController@sectorDelete')->name('accounting.sectordelete');
+
+		Route::get('/accounting/income', 'AccountingController@income')->name('accounting.income');
+		Route::post('/accounting/incomecreate', 'AccountingController@incomeCreate')->name('accounting.incomecreate');
+		Route::get('/accounting/incomelist', 'AccountingController@incomeList')->name('accounting.incomelist');
+		Route::post('/accounting/incomelist', 'AccountingController@incomeListPost')->name('accounting.postincomelist');
+		Route::get('/accounting/incomeedit/{id}', 'AccountingController@incomeEdit')->name('accounting.incomeedit');
+		Route::post('/accounting/incomeupdate', 'AccountingController@incomeUpdate')->name('accounting.postincomeupdate');
+		Route::post('/accounting/incomedelete', 'AccountingController@incomeDelete')->name('accounting.incomedelete');
+
+		Route::get('/accounting/expence', 'accountingController@expence')->name('accounting.expence');
+		Route::post('/accounting/expencecreate', 'AccountingController@expenceCreate')->name('accounting.expencecreate');
+		Route::get('/accounting/expencelist', 'AccountingController@expenceList')->name('accounting.expencelist');
+		Route::post('/accounting/expencelist', 'AccountingController@expenceListPost')->name('accounting.postexpencelist');
+		Route::get('/accounting/expenceedit/{id}', 'AccountingController@expenceEdit')->name('accounting.expenceedit');
+		Route::post('/accounting/expenceupdate', 'AccountingController@expenceUpdate')->name('accounting.expenceupdate');
+		Route::get('/accounting/expencedelete', 'AccountingController@expenceDelete')->name('accounting.expencedelete');
+
+		Route::get('/accounting/report', 'AccountingController@getReport')->name('accounting.report');
+		Route::get('/accounting/reportsum', 'AccountingController@getReportsum')->name('accounting.reportsum');
+
+		Route::get('/accounting/reportprint/{rtype}/{fdate}/{tdate}', 'AccountingController@printReport')->name('accounting.reportprint');
+		Route::get('/accounting/reportprintsum/{fdate}/{tdate}', 'AccountingController@printReportsum')->name('accounting.reportprintsum');
+
+
 	}
 );
 
