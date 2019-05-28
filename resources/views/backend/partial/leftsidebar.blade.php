@@ -15,11 +15,13 @@
         </a>
       </li>
       @endcan
+      @can('promotion')
        <li>
         <a href="{{ URL::route('promotion') }}">
           <i class="fa icon-student"></i> <span>Promotion</span>
         </a>
       </li>
+      @endcan
       @can('teacher.index')
       <li>
         <a href="{{ URL::route('teacher.index') }}">
@@ -37,16 +39,20 @@
           </span>
         </a>
         <ul class="treeview-menu">
+          @can('student_attendance.index')
           <li>
             <a href="{{ URL::route('student_attendance.index') }}">
               <i class="fa icon-student"></i> <span>Student Attendance</span>
             </a>
           </li>
+          @endcan
+          @can('employee_attendance.index')
           <li>
             <a href="{{ URL::route('employee_attendance.index') }}">
               <i class="fa icon-member"></i> <span>Employee Attendance</span>
             </a>
           </li>
+          @endcan
         </ul>
       </li>
       @endcanany
@@ -115,43 +121,55 @@
             </span>
         </a>
         <ul class="treeview-menu">
+          @can('library.search')
            <li>
             <a href="{{URL::route('library.search')}}">
               <i class="fa fa-calendar-plus-o"></i> <span>Book Search</span>
             </a>
           </li>
+          @endcan
+          @can('library.issuebook')
           <li>
             <a href="{{URL::route('library.issuebook')}}">
               <i class="fa fa-calendar-plus-o"></i> <span>Borrow Book</span>
             </a>
           </li>
+          @endcan
+          @can('library.issuebookview')
           <li>
             <a href="{{ route('library.issuebookview') }}">
               <i class="fa icon-mailandsms"></i> <span>Borrowd Book List</span>
             </a>
           </li>
+          @endcan
+          @can('library.getview-show')
           <li>
             <a href="{{ route('library.getview-show') }}">
               <i class="fa fa-id-card"></i> <span>Book List</span>
             </a>
           </li>
-
+          @endcan
+          @can('library.getaddbook')
           <li>
             <a href="{{ route('library.getaddbook') }}">
               <i class="fa fa-user-md"></i> <span> Book Entry</span>
             </a>
           </li>
+          @endcan
+          @can('library.reports')
           <li>
             <a href="{{ route('library.reports') }}">
               <i class="fa fa-eye-slash"></i> <span>Reports</span>
             </a>
           </li>
+          @endcan
+          @can('library.reports.fine')
           <li>
             <a href="{{ route('library.reports.fine') }}">
               <i class="fa fa-users"></i> <span>Monthly Fine Reports</span>
             </a>
           </li>
-
+          @endcan
           {{--<li>--}}
           {{--<a href="#">--}}
           {{--<i class="fa fa-download"></i> <span>Backup</span>--}}
@@ -274,7 +292,7 @@
             <a href="{{ URL::route('sallary.payment') }}">
               <i class="fa fa-circle-o"></i> <span>Sallary Payment</span>
             </a>
-          </li>  
+          </li>
 
             <li>
             <a href="{{ URL::route('sallary.report') }}">
@@ -346,14 +364,18 @@
           </span>
         </a>
           <ul class="treeview-menu">
+            @can('student.fee.views')
             <li><a href="{{ route('student.fee.views') }}"><i class="fa fa-circle-o"></i>Student Fees</a></li>
+            @endcan
+            @can('student.fee.collection')
             <li ><a href="{{ route('student.fee.collection') }}"><i class="fa fa-circle-o"></i> Fees Collection</a></li>
+            @endcan
+            @can('student.fee.setuplist')
             <li class="{{Request::is('fees/setup*') ?'active':''}}" ><a href="{{ route('student.fee.setuplist') }}"><i class="fa fa-circle-o"></i> Fees Setup</a></li>
             <li ><a href="{{ route('student.fee.report') }}"><i class="fa fa-circle-o"></i> Fee Collection Report</a></li>
+            @endcan
           </ul>
     </li>
-<<<<<<< HEAD
-=======
    @endrole
 
     <li class="treeview">
@@ -365,21 +387,26 @@
           </span>
         </a>
           <ul class="treeview-menu">
+            @can('dormitory')
             <li><a href="{{ route('dormitory') }}"><i class="fa fa-circle-o"></i>Dormitory</a></li>
-
+            @endcan
+            @can('dormitory.assignstd')
             <li ><a href="{{ route('dormitory.assignstd') }}"><i class="fa fa-circle-o"></i> Assign Student</a></li>
-
+            @endcan
+            @can('dormitory.assignstd.list')
             <li  ><a href="{{ route('dormitory.assignstd.list') }}"><i class="fa fa-circle-o"></i> Student List</a></li>
-
+            @endcan
+            @can('dormitory.fee')
             <li ><a href="{{ route('dormitory.fee') }}"><i class="fa fa-circle-o"></i> Fee Collection</a></li>
-
+            @endcan
+            @can('dormitory.report.std')
             <li ><a href="{{ route('dormitory.report.std') }}"><i class="fa fa-circle-o"></i> Dormitory Report</a></li>
-
+            @endcan
+            @can('dormitory.report.fee')
              <li ><a href="{{ route('dormitory.report.fee') }}"><i class="fa fa-circle-o"></i> Fee Reports</a></li>
-
+            @endcan
           </ul>
     </li>
->>>>>>> 5fbea060bcd2e5e0e37f755882b43edc8c286d2f
       @can('user.index')
       <li>
         <a href="{{ URL::route('user.index') }}">
@@ -397,16 +424,21 @@
           </span>
         </a>
           <ul class="treeview-menu">
+            @can('sectors')
             <li><a href="{{ route('sectors') }}"><i class="fa fa-circle-o"></i>Sectors</a></li>
-
+            @endcan
+            @can('accounting.incomelist')
             <li ><a href="{{ route('accounting.income') }}"><i class="fa fa-circle-o"></i> Add Income</a></li>
-
+            @endcan
+            @can('accounting.incomelist')
             <li  ><a href="{{ route('accounting.incomelist') }}"><i class="fa fa-circle-o"></i> View Income</a></li>
-
+            @endcan
+            @can('accounting.expence')
             <li ><a href="{{ route('accounting.expence') }}"><i class="fa fa-circle-o"></i> Add Expence</a></li>
-
+            @endcan
+            @can('accounting.expencelist')
             <li ><a href="{{ route('accounting.expencelist') }}"><i class="fa fa-circle-o"></i> View Expence</a></li>
-
+            @endcan
           </ul>
     </li>
       <li class="treeview">
@@ -589,12 +621,16 @@
               </span>
             </a>
             <ul class="treeview-menu">
+              @can('accounting.report')
               <li>
                 <a href="{{ route('accounting.report') }}"><i class="fa fa-list-alt"></i><span>Account By Type</span></a>
               </li>
+              @endcan
+              @can('accounting.reportsum')
               <li>
                 <a href="{{ route('accounting.reportsum') }}"><i class="fa fa-list-alt"></i><span>Account Balance</span></a>
               </li>
+              @endcan
             </ul>
           </li>
           {{-- <li class="treeview">
